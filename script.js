@@ -14,7 +14,7 @@ const projects = [
     ],
     tech: ["Particle Argon", "C/C++", "I2C LCD", "LEDs", "Buzzer", "Webhooks", "Particle Cloud"],
     badges: ["Award", "Featured"],
-    links: { GitHub: "#", Devpost: "#", Photos: "#" }
+    links: { GitHub: "https://github.com/Rama7i11/specter-ai", Devpost: "https://devpost.com/software/specter-ai", Photos: "#" }
   },
   {
     title: "Embedded Access Control System",
