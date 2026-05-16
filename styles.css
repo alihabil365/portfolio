@@ -27,19 +27,37 @@ body {
   margin: 0;
   font-family: var(--font);
   color: var(--text);
-  background:
-    radial-gradient(circle at 20% 0%, rgba(255,255,255,.22), transparent 28%),
-    linear-gradient(145deg, var(--desktop), var(--desktop-dark));
+  background: var(--desktop-dark);
   min-height: 100vh;
   font-size: 15px;
   line-height: 1.55;
+  position: relative;
+  isolation: isolate;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: -10px;
+  background: url("assets/images/bliss-background.jpg") center / cover no-repeat;
+  filter: blur(4px);
+  transform: scale(1.03);
+  z-index: 0;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 43, 79, .18);
+  z-index: 0;
 }
 a { color: var(--blue); }
 .desktop-bg {
   min-height: 100vh;
   padding: 24px 18px 72px;
-  background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
   background-size: 34px 34px;
+  position: relative;
+  z-index: 1;
 }
 .shell-window {
   max-width: 1120px;
@@ -49,6 +67,15 @@ a { color: var(--blue); }
   background: var(--panel);
   box-shadow: 6px 8px 0 rgba(0,0,0,.13), 0 12px 30px var(--shadow);
   overflow: hidden;
+}
+.shell-window.is-minimized {
+  margin-bottom: 12px;
+}
+.shell-window.is-minimized > :not(.title-bar) {
+  display: none;
+}
+.shell-window.is-minimized .title-bar {
+  cursor: pointer;
 }
 .title-bar {
   min-height: 34px;
@@ -88,6 +115,19 @@ a { color: var(--blue); }
   background: linear-gradient(#7fb4ff, #1e5aae);
   font-weight: 700;
   font-family: var(--font);
+}
+.window-controls span {
+  cursor: pointer;
+  user-select: none;
+}
+.window-controls span:hover,
+.window-controls span:focus {
+  filter: brightness(1.12);
+  outline: 1px dotted rgba(255,255,255,.75);
+  outline-offset: -3px;
+}
+.window-controls span:active {
+  transform: translateY(1px);
 }
 .close-button {
   background: linear-gradient(#ee9b83, #c74733);

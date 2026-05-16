@@ -211,6 +211,45 @@ const projectSections = document.getElementById("projectSections");
 const modalBackdrop = document.getElementById("modalBackdrop");
 const modalClose = document.getElementById("modalClose");
 
+function initWindowControls() {
+  document.querySelectorAll(".shell-window").forEach((windowEl, index) => {
+    const titleBar = windowEl.querySelector(".title-bar");
+    const controls = windowEl.querySelector(".window-controls");
+    if (!titleBar || !controls) return;
+
+    controls.removeAttribute("aria-hidden");
+    controls.querySelectorAll("span").forEach((control, controlIndex) => {
+      control.setAttribute("role", "button");
+      control.setAttribute("tabindex", "0");
+      control.setAttribute("aria-label", "Minimize window");
+      control.dataset.windowControl = controlIndex === 0 ? "minimize" : controlIndex === 1 ? "maximize" : "close";
+
+      const toggleWindow = event => {
+        event.stopPropagation();
+        const isMinimized = windowEl.classList.toggle("is-minimized");
+        windowEl.setAttribute("aria-expanded", String(!isMinimized));
+      };
+
+      control.addEventListener("click", toggleWindow);
+      control.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleWindow(event);
+        }
+      });
+    });
+
+    titleBar.addEventListener("click", event => {
+      if (event.target.closest(".window-controls")) return;
+      if (!windowEl.classList.contains("is-minimized")) return;
+
+      windowEl.classList.remove("is-minimized");
+      windowEl.setAttribute("aria-expanded", "true");
+      if (index > 0) windowEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+}
+
 function makeTag(text) {
   return `<span class="tag">${text}</span>`;
 }
@@ -286,3 +325,4 @@ document.addEventListener("keydown", event => {
 
 renderTabs();
 renderProjects();
+initWindowControls();
