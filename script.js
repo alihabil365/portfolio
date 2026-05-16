@@ -30,7 +30,7 @@ const projects = [
     ],
     tech: ["Arduino", "C/C++", "Keypad", "I2C LCD", "74LS32", "74LS00", "RC Circuits"],
     badges: ["Featured"],
-    links: { GitHub: "#", Report: "#", Photos: "#" }
+    links: { GitHub: "#", Report: "assets/docs/hop-2.pdf", Photos: "#" }
   },
   {
     title: "IoT Calculator Interface",
@@ -77,7 +77,7 @@ const projects = [
     ],
     tech: ["74LS283", "Logic Gates", "BCD Arithmetic", "Breadboarding"],
     badges: [],
-    links: { Report: "#", Photos: "#" }
+    links: { Report: "assets/docs/bcd-adder-seven-seg.pdf", Photos: "#" }
   },
   {
     title: "MATLAB Audio Processing GUI",
