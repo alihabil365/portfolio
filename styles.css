@@ -47,7 +47,8 @@ a { color: var(--blue); }
   background: url("./assets/images/bliss-background.jpg") center / cover no-repeat;
   filter: blur(4px);
   transform: scale(1.03);
-  z-index: -2;
+  pointer-events: none;
+  z-index: 0;
 }
 .desktop-bg::after {
   content: "";
@@ -59,7 +60,11 @@ a { color: var(--blue); }
     rgba(15, 43, 79, .12);
   background-size: 34px 34px, 34px 34px, auto;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
+}
+.desktop-bg > * {
+  position: relative;
+  z-index: 1;
 }
 .shell-window {
   max-width: 1120px;
