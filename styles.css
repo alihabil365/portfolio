@@ -31,33 +31,35 @@ body {
   min-height: 100vh;
   font-size: 15px;
   line-height: 1.55;
-  position: relative;
-  isolation: isolate;
-}
-body::before {
-  content: "";
-  position: fixed;
-  inset: -10px;
-  background: url("assets/images/bliss-background.jpg") center / cover no-repeat;
-  filter: blur(4px);
-  transform: scale(1.03);
-  z-index: 0;
-}
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 43, 79, .18);
-  z-index: 0;
 }
 a { color: var(--blue); }
 .desktop-bg {
   min-height: 100vh;
   padding: 24px 18px 72px;
-  background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
-  background-size: 34px 34px;
+  overflow: hidden;
   position: relative;
-  z-index: 1;
+  isolation: isolate;
+}
+.desktop-bg::before {
+  content: "";
+  position: fixed;
+  inset: -12px;
+  background: url("./assets/images/bliss-background.jpg") center / cover no-repeat;
+  filter: blur(4px);
+  transform: scale(1.03);
+  z-index: -2;
+}
+.desktop-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
+    rgba(15, 43, 79, .12);
+  background-size: 34px 34px, 34px 34px, auto;
+  pointer-events: none;
+  z-index: -1;
 }
 .shell-window {
   max-width: 1120px;
