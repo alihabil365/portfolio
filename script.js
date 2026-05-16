@@ -21,6 +21,7 @@ const projects = [
     subtitle: "Keypad, LCD, tamper detection, lockout logic",
     group: "Embedded Systems + Microcontrollers",
     image: "assets/images/access-control.jpg",
+    hasPhoto: true,
     overview: "Electromechanical access control system using Arduino, keypad authentication, I2C LCD output, tamper detection, lockout logic, and discrete safety circuitry.",
     details: [
       "Designed and built an Arduino-based access controller with keypad input and LCD feedback.",
@@ -30,7 +31,7 @@ const projects = [
     ],
     tech: ["Arduino", "C/C++", "Keypad", "I2C LCD", "74LS32", "74LS00", "RC Circuits"],
     badges: ["Featured"],
-    links: { GitHub: "#", Report: "assets/docs/hop-2.pdf", Photos: "#" }
+    links: { GitHub: "#", Report: "#", Photos: "#" }
   },
   {
     title: "IoT Calculator Interface",
@@ -52,6 +53,7 @@ const projects = [
     subtitle: "555 timer clock + seven-segment display",
     group: "Digital Logic + Circuits",
     image: "assets/images/bcd-counter.jpg",
+    hasPhoto: true,
     overview: "Digital logic counter circuit using a 555 timer clock, BCD counter IC, and CD4511 seven-segment display driver.",
     details: [
       "Designed a 0–9 counter circuit using a 555 timer as the clock source.",
@@ -69,6 +71,7 @@ const projects = [
     subtitle: "4-bit adders + correction logic",
     group: "Digital Logic + Circuits",
     image: "assets/images/bcd-adder.jpg",
+    hasPhoto: true,
     overview: "BCD addition circuit using 4-bit adders and correction logic.",
     details: [
       "Designed a circuit to add two BCD digits.",
@@ -293,9 +296,12 @@ function renderProjects() {
   projectSections.innerHTML = visibleGroups.map(group => {
     const cards = projects.filter(project => project.group === group).map((project, index) => {
       const projectIndex = projects.indexOf(project);
+      const thumbContent = project.hasPhoto
+        ? `<img src="${project.image}" alt="${project.title} photo">`
+        : `<span>${group}</span>`;
       return `
         <button class="project-card" data-index="${projectIndex}">
-          <div class="project-thumb image-placeholder" data-image="${project.image}"><span>${group}</span></div>
+          <div class="project-thumb image-placeholder ${project.hasPhoto ? "has-photo" : ""}" data-image="${project.image}">${thumbContent}</div>
           <div class="project-card-body">
             <div class="badges">${project.badges.map(makeBadge).join("")}</div>
             <h4>${project.title}</h4>
@@ -320,7 +326,10 @@ function openProject(project) {
   document.getElementById("modalOverview").textContent = project.overview;
   document.getElementById("modalDetails").innerHTML = project.details.map(item => `<li>${item}</li>`).join("");
   document.getElementById("modalTech").innerHTML = project.tech.map(makeTag).join("");
-  document.getElementById("modalImage").innerHTML = `<span>Replace with<br>${project.image}</span>`;
+  document.getElementById("modalImage").classList.toggle("has-photo", Boolean(project.hasPhoto));
+  document.getElementById("modalImage").innerHTML = project.hasPhoto
+    ? `<img src="${project.image}" alt="${project.title} photo">`
+    : `<span>Replace with<br>${project.image}</span>`;
   document.getElementById("modalLinks").innerHTML = Object.entries(project.links).map(([label, href]) => `<a class="xp-button" href="${href}" ${href === "#" ? "aria-disabled=\"true\"" : "target=\"_blank\" rel=\"noreferrer\""}>${label}</a>`).join("");
   modalBackdrop.classList.add("open");
   modalBackdrop.setAttribute("aria-hidden", "false");

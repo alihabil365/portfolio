@@ -291,6 +291,19 @@ h3 { color: #2b2a22; }
 }
 .project-card:hover { transform: translateY(-2px); box-shadow: 4px 5px 0 rgba(0,0,0,.12); }
 .project-thumb { height: 132px; position: relative; }
+.project-thumb.has-photo,
+.modal-image.has-photo {
+  border-style: solid;
+  background: #111;
+  overflow: hidden;
+}
+.project-thumb.has-photo img,
+.modal-image.has-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .project-thumb::after {
   content: attr(data-image);
   position: absolute;
@@ -303,6 +316,7 @@ h3 { color: #2b2a22; }
   font-size: 11px;
   color: #5e573f;
 }
+.project-thumb.has-photo::after { display: none; }
 .project-card-body { padding: 12px; }
 .project-card h4 { margin: 0 0 5px; font-size: 16px; color: #17305a; }
 .project-card p { margin: 0 0 10px; color: #4d4739; font-size: 13px; }
