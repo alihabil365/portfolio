@@ -56,12 +56,13 @@ const projects = [
     details: [
       "Designed a 0–9 counter circuit using a 555 timer as the clock source.",
       "Used a potentiometer to control the counter speed.",
-      "Connected a BCD counter to a seven-segment decoder/display driver.",
-      "Demonstrated timing circuits, IC wiring, and digital display logic."
+      "Connected a BCD counter IC to a CD4511 BCD-to-seven-segment display driver.",
+      "Built and tested the breadboarded circuit with LEDs, resistors, and seven-segment display wiring.",
+      "Documented the circuit operation in a PDF report now linked from the project modal."
     ],
     tech: ["NE555", "74LS90", "CD4511", "Seven-Segment Display", "Potentiometer"],
     badges: [],
-    links: { Report: "#", Photos: "#" }
+    links: { Report: "assets/docs/bcd-counter.pdf", Photos: "#" }
   },
   {
     title: "BCD Adder Circuit",
@@ -83,16 +84,17 @@ const projects = [
     subtitle: "Acoustic effects, filters, and PSD analysis",
     group: "MATLAB + Signal Processing",
     image: "assets/images/audio-gui.jpg",
-    overview: "MATLAB GUI that loads audio files, applies acoustic effects and filters, plays processed audio, and displays PSD comparisons.",
+    overview: "MATLAB GUI that loads WAV audio, applies room effects and vocal filters, controls playback, and compares original versus processed PSD plots.",
     details: [
-      "Built a GUI for audio processing and spectral analysis in MATLAB.",
-      "Implemented cave, cathedral, and stadium effects using convolution with impulse responses.",
-      "Modeled karaoke/off-vocal processing using filter-based transformations.",
-      "Displayed Power Spectral Density plots comparing original and processed signals."
+      "Built a MATLAB App Designer-style GUI with a control panel, audio loading, status feedback, and original/processed playback controls.",
+      "Implemented Cave, Cathedral, and Stadium effects using convolution with synthetic room impulse responses.",
+      "Implemented Karaoke and Off-Vocal modes using filter-based transformations with adjustable order, gain, and frequency parameters.",
+      "Displayed Power Spectral Density plots comparing the original and processed signals using FFT-based analysis.",
+      "Added the final PDF report and MATLAB source file as downloadable project links."
     ],
-    tech: ["MATLAB", "GUI Design", "Signal Processing", "Convolution", "Filtering", "PSD Analysis"],
+    tech: ["MATLAB", "GUI Design", "WAV Audio", "Convolution", "Filtering", "FFT", "PSD Analysis"],
     badges: ["Featured"],
-    links: { GitHub: "#", Report: "#", Demo: "#", "Source Code": "#" }
+    links: { GitHub: "#", Report: "assets/docs/matlab-audio-gui-final.pdf", Demo: "#", "Source Code": "assets/code/EEL4102_Audio_GUI.m" }
   },
   {
     title: "Convolution Tutor MATLAB GUI",
@@ -155,6 +157,22 @@ const projects = [
     tech: ["Canvas API", "Gemini AI", "Azure Custom Vision", "Tailwind CSS", "JavaScript"],
     badges: [],
     links: { GitHub: "#", Demo: "#" }
+  },
+  {
+    title: "JBS Wood LLC Website",
+    subtitle: "Business website with backend integrations",
+    group: "Software + Web",
+    image: "assets/images/jbs-wood-llc.jpg",
+    overview: "Website and backend project for JBS Wood LLC, deployed on Vercel with Supabase backend services and Resend email integration.",
+    details: [
+      "Built the public website for JBS Wood LLC.",
+      "Implemented backend functionality using Supabase.",
+      "Deployed the site on Vercel.",
+      "Integrated Resend for email handling."
+    ],
+    tech: ["Supabase", "Vercel", "Resend", "Web Development", "Backend"],
+    badges: ["Featured"],
+    links: { Website: "https://jbs-wood-llc.com", Demo: "https://jbs-wood-llc.com" }
   },
   {
     title: "Mimic Robotic Arm Prototype",
