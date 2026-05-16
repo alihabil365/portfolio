@@ -107,7 +107,7 @@ const projects = [
     ],
     tech: ["MATLAB", "GUI Design", "Signal Processing", "Convolution", "Data Visualization"],
     badges: [],
-    links: { GitHub: "#", Demo: "#", "Source Code": "#", Report: "#" }
+    links: { GitHub: "https://github.com/alihabil365/MATLAB_convolution_Tutor", Demo: "#", "Source Code": "https://github.com/alihabil365/MATLAB_convolution_Tutor", Report: "#" }
   },
   {
     title: "One-Way ANOVA MATLAB GUI",
