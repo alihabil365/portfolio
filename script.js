@@ -163,17 +163,19 @@ const projects = [
   },
   {
     title: "JBS Wood LLC Website",
-    subtitle: "Business website with backend integrations",
-    group: "Software + Web",
+    subtitle: "Marketing website with local business integrations",
+    group: "Marketing",
     image: "assets/images/jbs-wood-llc.jpg",
-    overview: "Website and backend project for JBS Wood LLC, deployed on Vercel with Supabase backend services and Resend email integration.",
+    overview: "Marketing website and backend project for JBS Wood LLC, deployed on Vercel with Supabase, Resend, Google Places API, and Google Reviews integration.",
     details: [
-      "Built the public website for JBS Wood LLC.",
+      "Built the public marketing website for JBS Wood LLC.",
       "Implemented backend functionality using Supabase.",
+      "Integrated Google Places API to connect the site with local business presence data.",
+      "Added Google Reviews integration to surface customer reviews from the company's Google Business profile.",
       "Deployed the site on Vercel.",
       "Integrated Resend for email handling."
     ],
-    tech: ["Supabase", "Vercel", "Resend", "Web Development", "Backend"],
+    tech: ["Google Places API", "Google Reviews", "Google Business Profile", "Supabase", "Vercel", "Resend"],
     badges: ["Featured"],
     links: { Website: "https://jbs-wood-llc.com", Demo: "https://jbs-wood-llc.com" }
   },
