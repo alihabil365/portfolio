@@ -131,10 +131,11 @@ const projects = [
     links: { GitHub: "#", Demo: "#", "Source Code": "#", Report: "#" }
   },
   {
-    title: "Brtr - Barter-Based Web App",
+    title: "Bartr - Barter-Based Web App",
     subtitle: "HackaBull 2025 - Best Theme Implementation",
     group: "Software + Web",
-    image: "assets/images/brtr.jpg",
+    image: "assets/images/bartr-logo.png",
+    hasPhoto: true,
     overview: "Barter-based web application that allows users to list items, place bids, and find fair trades without traditional currency.",
     details: [
       "Built with Next.js and Supabase for listings, bidding, and authentication.",
@@ -160,24 +161,6 @@ const projects = [
     tech: ["Canvas API", "Gemini AI", "Azure Custom Vision", "Tailwind CSS", "JavaScript"],
     badges: [],
     links: { GitHub: "#", Demo: "#" }
-  },
-  {
-    title: "JBS Wood LLC Website",
-    subtitle: "Marketing website with local business integrations",
-    group: "Marketing",
-    image: "assets/images/jbs-wood-llc.jpg",
-    overview: "Marketing website and backend project for JBS Wood LLC, deployed on Vercel with Supabase, Resend, Google Places API, and Google Reviews integration.",
-    details: [
-      "Built the public marketing website for JBS Wood LLC.",
-      "Implemented backend functionality using Supabase.",
-      "Integrated Google Places API to connect the site with local business presence data.",
-      "Added Google Reviews integration to surface customer reviews from the company's Google Business profile.",
-      "Deployed the site on Vercel.",
-      "Integrated Resend for email handling."
-    ],
-    tech: ["Google Places API", "Google Reviews", "Google Business Profile", "Supabase", "Vercel", "Resend"],
-    badges: ["Featured"],
-    links: { Website: "https://jbs-wood-llc.com", Demo: "https://jbs-wood-llc.com" }
   },
   {
     title: "Mimic Robotic Arm Prototype",
@@ -323,7 +306,7 @@ function renderProjects() {
           </div>
         </button>`;
     }).join("");
-    return `<section class="project-category"><h3>[DIR] ${escapeHtml(group)}</h3><div class="project-grid">${cards}</div></section>`;
+    return `<section class="project-category"><h3>${escapeHtml(group)}</h3><div class="project-grid">${cards}</div></section>`;
   }).join("");
 
   projectSections.querySelectorAll(".project-card").forEach(card => {
