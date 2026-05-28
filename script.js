@@ -1,7 +1,7 @@
 const projects = [
   {
     title: "SPECTER-AI Wearable Cybersecurity Alert System",
-    subtitle: "HackaBull 2026 — Tech for Good Winner",
+    subtitle: "HackaBull 2026 - Tech for Good Winner",
     group: "Embedded Systems + Microcontrollers",
     image: "assets/images/specter-ai.jpg",
     overview: "Wearable cybersecurity alert system that gives SOC analysts real-time physical alerts through an LCD, LEDs, buzzer, pushbuttons, and a potentiometer-based mode dial.",
@@ -38,25 +38,25 @@ const projects = [
     subtitle: "Particle Argon + keypad + I2C LCD",
     group: "Embedded Systems + Microcontrollers",
     image: "assets/images/iot-calculator.jpg",
-    overview: "Standalone calculator built with a Particle Argon, 4×4 keypad, and 16×2 I2C LCD.",
+    overview: "Standalone calculator built with a Particle Argon, 4x4 keypad, and 16x2 I2C LCD.",
     details: [
       "Programmed embedded logic to parse keypad inputs and display arithmetic results.",
       "Integrated a Particle Argon with LCD and keypad hardware.",
       "Managed user input, operation selection, and LCD updates in C/C++."
     ],
-    tech: ["Particle Argon", "C/C++", "I2C LCD", "4×4 Keypad"],
+    tech: ["Particle Argon", "C/C++", "I2C LCD", "4x4 Keypad"],
     badges: [],
     links: { GitHub: "#", Photos: "#" }
   },
   {
-    title: "0–9 BCD Counter",
+    title: "0-9 BCD Counter",
     subtitle: "555 timer clock + seven-segment display",
     group: "Digital Logic + Circuits",
     image: "assets/images/bcd-counter.jpg",
     hasPhoto: true,
     overview: "Digital logic counter circuit using a 555 timer clock, BCD counter IC, and CD4511 seven-segment display driver.",
     details: [
-      "Designed a 0–9 counter circuit using a 555 timer as the clock source.",
+      "Designed a 0-9 counter circuit using a 555 timer as the clock source.",
       "Used a potentiometer to control the counter speed.",
       "Connected a BCD counter IC to a CD4511 BCD-to-seven-segment display driver.",
       "Built and tested the breadboarded circuit with LEDs, resistors, and seven-segment display wiring.",
@@ -131,8 +131,8 @@ const projects = [
     links: { GitHub: "#", Demo: "#", "Source Code": "#", Report: "#" }
   },
   {
-    title: "Brtr — Barter-Based Web App",
-    subtitle: "HackaBull 2025 — Best Theme Implementation",
+    title: "Brtr - Barter-Based Web App",
+    subtitle: "HackaBull 2025 - Best Theme Implementation",
     group: "Software + Web",
     image: "assets/images/brtr.jpg",
     overview: "Barter-based web application that allows users to list items, place bids, and find fair trades without traditional currency.",
@@ -244,8 +244,9 @@ function initWindowControls() {
     controls.querySelectorAll("span").forEach((control, controlIndex) => {
       control.setAttribute("role", "button");
       control.setAttribute("tabindex", "0");
-      control.setAttribute("aria-label", "Minimize window");
-      control.dataset.windowControl = controlIndex === 0 ? "minimize" : controlIndex === 1 ? "maximize" : "close";
+      const controlName = controlIndex === 0 ? "Minimize" : controlIndex === 1 ? "Restore" : "Hide";
+      control.setAttribute("aria-label", `${controlName} window`);
+      control.dataset.windowControl = controlName.toLowerCase();
 
       const toggleWindow = event => {
         event.stopPropagation();
@@ -273,17 +274,27 @@ function initWindowControls() {
   });
 }
 
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#39;"
+  }[character]));
+}
+
 function makeTag(text) {
-  return `<span class="tag">${text}</span>`;
+  return `<span class="tag">${escapeHtml(text)}</span>`;
 }
 
 function makeBadge(text) {
   const className = text === "Award" ? "badge award" : text === "In Progress" ? "badge progress" : "badge";
-  return `<span class="${className}">${text}</span>`;
+  return `<span class="${className}">${escapeHtml(text)}</span>`;
 }
 
 function renderTabs() {
-  categoryTabs.innerHTML = groups.map(group => `<button class="tab-button ${group === activeGroup ? "active" : ""}" data-group="${group}">${group}</button>`).join("");
+  categoryTabs.innerHTML = groups.map(group => `<button class="tab-button ${group === activeGroup ? "active" : ""}" data-group="${escapeHtml(group)}">${escapeHtml(group)}</button>`).join("");
   categoryTabs.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", () => {
       activeGroup = button.dataset.group;
@@ -299,20 +310,20 @@ function renderProjects() {
     const cards = projects.filter(project => project.group === group).map((project, index) => {
       const projectIndex = projects.indexOf(project);
       const thumbContent = project.hasPhoto
-        ? `<img src="${project.image}" alt="${project.title} photo">`
-        : `<span>${group}</span>`;
+        ? `<img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} photo">`
+        : `<span>${escapeHtml(group)}</span>`;
       return `
         <button class="project-card" data-index="${projectIndex}">
-          <div class="project-thumb image-placeholder ${project.hasPhoto ? "has-photo" : ""}" data-image="${project.image}">${thumbContent}</div>
+          <div class="project-thumb image-placeholder ${project.hasPhoto ? "has-photo" : ""}" data-image="${escapeHtml(project.image)}">${thumbContent}</div>
           <div class="project-card-body">
             <div class="badges">${project.badges.map(makeBadge).join("")}</div>
-            <h4>${project.title}</h4>
-            <p>${project.overview}</p>
+            <h4>${escapeHtml(project.title)}</h4>
+            <p>${escapeHtml(project.overview)}</p>
             <div class="tag-row">${project.tech.slice(0, 4).map(makeTag).join("")}</div>
           </div>
         </button>`;
     }).join("");
-    return `<section class="project-category"><h3>📁 ${group}</h3><div class="project-grid">${cards}</div></section>`;
+    return `<section class="project-category"><h3>[DIR] ${escapeHtml(group)}</h3><div class="project-grid">${cards}</div></section>`;
   }).join("");
 
   projectSections.querySelectorAll(".project-card").forEach(card => {
@@ -326,13 +337,16 @@ function openProject(project) {
   document.getElementById("modalSubtitle").textContent = project.subtitle || "";
   document.getElementById("modalCategory").textContent = project.group;
   document.getElementById("modalOverview").textContent = project.overview;
-  document.getElementById("modalDetails").innerHTML = project.details.map(item => `<li>${item}</li>`).join("");
+  document.getElementById("modalDetails").innerHTML = project.details.map(item => `<li>${escapeHtml(item)}</li>`).join("");
   document.getElementById("modalTech").innerHTML = project.tech.map(makeTag).join("");
   document.getElementById("modalImage").classList.toggle("has-photo", Boolean(project.hasPhoto));
   document.getElementById("modalImage").innerHTML = project.hasPhoto
-    ? `<img src="${project.image}" alt="${project.title} photo">`
-    : `<span>Replace with<br>${project.image}</span>`;
-  document.getElementById("modalLinks").innerHTML = Object.entries(project.links).map(([label, href]) => `<a class="xp-button" href="${href}" ${href === "#" ? "aria-disabled=\"true\"" : "target=\"_blank\" rel=\"noreferrer\""}>${label}</a>`).join("");
+    ? `<img src="${project.image}" alt="${escapeHtml(project.title)} photo">`
+    : `<span>Image coming soon<br>${escapeHtml(project.image)}</span>`;
+  document.getElementById("modalLinks").innerHTML = Object.entries(project.links).map(([label, href]) => {
+    const disabled = href === "#";
+    return `<a class="xp-button" href="${disabled ? "" : escapeHtml(href)}" ${disabled ? "aria-disabled=\"true\" tabindex=\"-1\"" : "target=\"_blank\" rel=\"noreferrer\""}>${escapeHtml(label)}</a>`;
+  }).join("");
   modalBackdrop.classList.add("open");
   modalBackdrop.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
