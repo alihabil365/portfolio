@@ -1,180 +1,180 @@
 const projects = [
   {
     title: "SPECTER-AI Wearable Cybersecurity Alert System",
-    subtitle: "HackaBull 2026 - Tech for Good Winner",
+    subtitle: "Hackathon project - wearable hardware interface",
     group: "Embedded Systems + Microcontrollers",
     image: "assets/images/specter-ai.jpg",
-    overview: "Wearable cybersecurity alert system that gives SOC analysts real-time physical alerts through an LCD, LEDs, buzzer, pushbuttons, and a potentiometer-based mode dial.",
+    overview: "Hackathon wearable that displayed cybersecurity alerts on a small hardware interface with an LCD, LEDs, buzzer, buttons, and a mode dial.",
     details: [
-      "Built the wearable hardware interface for an AI-powered cybersecurity response platform.",
-      "Integrated Particle Argon with I2C LCD, LEDs, buzzer, pushbutton, and potentiometer control.",
-      "Programmed firmware for live alerts, hardware inputs, status display, and backend communication through Particle Cloud events and webhooks.",
-      "Implemented human-in-the-loop authorization modes: Monitor, Alert Only, and Defense Ready.",
-      "Won Tech for Good at HackaBull 2026."
+      "Worked on the wearable hardware interface and firmware during HackaBull 2026.",
+      "Connected a Particle Argon to an I2C LCD, LEDs, buzzer, pushbutton, and potentiometer input.",
+      "Wrote firmware for alert display, hardware input handling, status updates, and Particle Cloud events/webhooks.",
+      "Added simple authorization modes for Monitor, Alert Only, and Defense Ready behavior.",
+      "The project received the Tech for Good award at HackaBull 2026."
     ],
     tech: ["Particle Argon", "C/C++", "I2C LCD", "LEDs", "Buzzer", "Webhooks", "Particle Cloud"],
-    badges: ["Award", "Featured"],
+    badges: ["Hackathon", "Award"],
     links: { GitHub: "https://github.com/Rama7i11/specter-ai", Devpost: "https://devpost.com/software/specter-ai", Photos: "#" }
   },
   {
     title: "Embedded Access Control System",
-    subtitle: "Keypad, LCD, tamper detection, lockout logic",
+    subtitle: "Learning project - keypad, LCD, tamper detection",
     group: "Embedded Systems + Microcontrollers",
     image: "assets/images/access-control.jpg",
     hasPhoto: true,
-    overview: "Electromechanical access control system using Arduino, keypad authentication, I2C LCD output, tamper detection, lockout logic, and discrete safety circuitry.",
+    overview: "Learning-focused access control project using Arduino, keypad input, LCD feedback, retry lockout, tamper detection, and discrete logic gates.",
     details: [
-      "Designed and built an Arduino-based access controller with keypad input and LCD feedback.",
-      "Added tamper detection and retry-based lockout logic.",
-      "Used 74LS32 OR gates and 74LS00 NAND gates for hardware-level safety and alarm logic.",
-      "Built RC timing circuits that operate independently of firmware execution."
+      "Assembled an Arduino-based access controller with keypad entry and I2C LCD messages.",
+      "Practiced retry counting, lockout states, and tamper detection logic.",
+      "Used 74LS32 OR gates and 74LS00 NAND gates for a separate alarm/safety path.",
+      "Tested RC timing circuits that could operate independently from the main firmware."
     ],
     tech: ["Arduino", "C/C++", "Keypad", "I2C LCD", "74LS32", "74LS00", "RC Circuits"],
-    badges: ["Featured"],
+    badges: ["Learning Project"],
     links: { GitHub: "#", Report: "#", Photos: "#" }
   },
   {
     title: "IoT Calculator Interface",
-    subtitle: "Particle Argon + keypad + I2C LCD",
+    subtitle: "Lab-style embedded interface",
     group: "Embedded Systems + Microcontrollers",
     image: "assets/images/iot-calculator.jpg",
-    overview: "Standalone calculator built with a Particle Argon, 4x4 keypad, and 16x2 I2C LCD.",
+    overview: "Small embedded calculator interface using a Particle Argon, 4x4 keypad, and 16x2 I2C LCD.",
     details: [
-      "Programmed embedded logic to parse keypad inputs and display arithmetic results.",
-      "Integrated a Particle Argon with LCD and keypad hardware.",
-      "Managed user input, operation selection, and LCD updates in C/C++."
+      "Practiced parsing keypad input and showing arithmetic results on an LCD.",
+      "Connected the keypad and display to a Particle Argon microcontroller.",
+      "Handled number entry, operation selection, and display updates in C/C++."
     ],
     tech: ["Particle Argon", "C/C++", "I2C LCD", "4x4 Keypad"],
-    badges: [],
+    badges: ["Learning Project"],
     links: { GitHub: "#", Photos: "#" }
   },
   {
     title: "0-9 BCD Counter",
-    subtitle: "555 timer clock + seven-segment display",
+    subtitle: "Course project - 555 timer and seven-segment display",
     group: "Digital Logic + Circuits",
     image: "assets/images/bcd-counter.jpg",
     hasPhoto: true,
-    overview: "Digital logic counter circuit using a 555 timer clock, BCD counter IC, and CD4511 seven-segment display driver.",
+    overview: "Course-style digital logic counter using a 555 timer clock, BCD counter IC, and CD4511 display driver.",
     details: [
-      "Designed a 0-9 counter circuit using a 555 timer as the clock source.",
-      "Used a potentiometer to control the counter speed.",
+      "Configured a 0-9 counter circuit with a 555 timer as the clock source.",
+      "Used a potentiometer to adjust the count speed.",
       "Connected a BCD counter IC to a CD4511 BCD-to-seven-segment display driver.",
-      "Built and tested the breadboarded circuit with LEDs, resistors, and seven-segment display wiring.",
-      "Documented the circuit operation in a PDF report now linked from the project modal."
+      "Breadboarded and tested the circuit with LEDs, resistors, and seven-segment display wiring.",
+      "Documented the circuit operation in a linked PDF report."
     ],
     tech: ["NE555", "74LS90", "CD4511", "Seven-Segment Display", "Potentiometer"],
-    badges: [],
+    badges: ["Course Project"],
     links: { Report: "assets/docs/bcd-counter.pdf", Photos: "#" }
   },
   {
     title: "BCD Adder Circuit",
-    subtitle: "4-bit adders + correction logic",
+    subtitle: "Course project - 4-bit adders and correction logic",
     group: "Digital Logic + Circuits",
     image: "assets/images/bcd-adder.jpg",
     hasPhoto: true,
-    overview: "BCD addition circuit using 4-bit adders and correction logic.",
+    overview: "Digital logic exercise for adding two BCD digits with 4-bit adders and correction logic.",
     details: [
-      "Designed a circuit to add two BCD digits.",
-      "Used correction logic to add 0110 when the binary sum exceeded valid BCD range.",
+      "Worked through the logic needed to add two BCD digits.",
+      "Applied correction logic to add 0110 when the binary sum exceeded the valid BCD range.",
       "Practiced truth tables, gate-level reasoning, and IC-based digital design."
     ],
     tech: ["74LS283", "Logic Gates", "BCD Arithmetic", "Breadboarding"],
-    badges: [],
+    badges: ["Course Project"],
     links: { Report: "assets/docs/bcd-adder-seven-seg.pdf", Photos: "#" }
   },
   {
     title: "MATLAB Audio Processing GUI",
-    subtitle: "Acoustic effects, filters, and PSD analysis",
+    subtitle: "Course-style MATLAB audio tool",
     group: "MATLAB + Signal Processing",
     image: "assets/images/audio-gui.jpg",
-    overview: "MATLAB GUI that loads WAV audio, applies room effects and vocal filters, controls playback, and compares original versus processed PSD plots.",
+    overview: "MATLAB GUI for experimenting with audio effects, filtering, playback, and PSD comparison.",
     details: [
-      "Built a MATLAB App Designer-style GUI with a control panel, audio loading, status feedback, and original/processed playback controls.",
-      "Implemented Cave, Cathedral, and Stadium effects using convolution with synthetic room impulse responses.",
-      "Implemented Karaoke and Off-Vocal modes using filter-based transformations with adjustable order, gain, and frequency parameters.",
-      "Displayed Power Spectral Density plots comparing the original and processed signals using FFT-based analysis.",
-      "Added the final PDF report and MATLAB source file as downloadable project links."
+      "Created a MATLAB App Designer-style interface with audio loading, status feedback, and playback controls.",
+      "Explored Cave, Cathedral, and Stadium effects using convolution with synthetic room impulse responses.",
+      "Added Karaoke and Off-Vocal modes with adjustable filter order, gain, and frequency parameters.",
+      "Compared original and processed audio with FFT-based Power Spectral Density plots.",
+      "Linked the final PDF report and MATLAB source file for review."
     ],
     tech: ["MATLAB", "GUI Design", "WAV Audio", "Convolution", "Filtering", "FFT", "PSD Analysis"],
-    badges: ["Featured"],
+    badges: ["Course Project"],
     links: { GitHub: "#", Report: "assets/docs/matlab-audio-gui-final.pdf", Demo: "#", "Source Code": "assets/code/EEL4102_Audio_GUI.m" }
   },
   {
     title: "Convolution Tutor MATLAB GUI",
-    subtitle: "Interactive step-by-step visualizer",
+    subtitle: "Educational MATLAB visualizer",
     group: "MATLAB + Signal Processing",
     image: "assets/images/convolution-tutor.jpg",
-    overview: "Interactive MATLAB GUI designed to help users understand convolution visually and step by step.",
+    overview: "Educational MATLAB GUI for visualizing convolution step by step.",
     details: [
-      "Built a MATLAB tutoring interface for learning convolution.",
-      "Allowed users to input or select example signals and visualize how convolution combines them.",
-      "Displayed signal shifting, multiplication, and output formation."
+      "Made a tutoring-style interface focused on understanding convolution.",
+      "Allowed users to enter or select example signals and see how they combine.",
+      "Displayed shifting, multiplication, and output formation as separate visual steps."
     ],
     tech: ["MATLAB", "GUI Design", "Signal Processing", "Convolution", "Data Visualization"],
-    badges: [],
+    badges: ["Learning Project"],
     links: { GitHub: "https://github.com/alihabil365/MATLAB_convolution_Tutor", Demo: "#", "Source Code": "https://github.com/alihabil365/MATLAB_convolution_Tutor", Report: "#" }
   },
   {
     title: "One-Way ANOVA MATLAB GUI",
-    subtitle: "Statistical analysis and visualization tool",
+    subtitle: "Educational statistics GUI",
     group: "MATLAB + Signal Processing",
     image: "assets/images/anova-gui.jpg",
-    overview: "MATLAB GUI for performing and visualizing one-way ANOVA analysis using user-defined statistical calculations.",
+    overview: "MATLAB GUI for practicing one-way ANOVA calculations and visualizing grouped data.",
     details: [
-      "Built an interactive GUI for entering or loading grouped data.",
-      "Computed one-way ANOVA values using custom user-defined functions.",
+      "Created an interface for entering or loading grouped data.",
+      "Computed one-way ANOVA values with custom user-defined functions.",
       "Displayed group means, sum of squares, degrees of freedom, F-statistic, and p-value.",
-      "Included group comparison plots and results tables."
+      "Included comparison plots and result tables to make the calculations easier to follow."
     ],
     tech: ["MATLAB", "GUI Design", "Statistics", "ANOVA", "Data Visualization"],
-    badges: [],
+    badges: ["Learning Project"],
     links: { GitHub: "#", Demo: "#", "Source Code": "#", Report: "#" }
   },
   {
     title: "Bartr - Barter-Based Web App",
-    subtitle: "HackaBull 2025 - Best Theme Implementation",
+    subtitle: "Hackathon project - barter web app",
     group: "Software + Web",
     image: "assets/images/bartr-logo.png",
     hasPhoto: true,
-    overview: "Barter-based web application that allows users to list items, place bids, and find fair trades without traditional currency.",
+    overview: "Hackathon web app for listing items, placing barter offers, and estimating fair trade ranges.",
     details: [
-      "Built with Next.js and Supabase for listings, bidding, and authentication.",
-      "Integrated Gemini API to estimate product values and support fair trades within a 10% range.",
-      "Designed an interactive frontend using Tailwind CSS.",
-      "Won Best Theme Implementation at HackaBull 2025."
+      "Worked on a Next.js and Supabase app for listings, bidding, and authentication.",
+      "Used the Gemini API to estimate item values and compare proposed trades within a 10% range.",
+      "Styled the frontend with Tailwind CSS during the hackathon build.",
+      "The project received Best Theme Implementation at HackaBull 2025."
     ],
     tech: ["Next.js", "Supabase", "Tailwind CSS", "Gemini API", "JavaScript/TypeScript"],
-    badges: ["Award", "Featured"],
+    badges: ["Hackathon", "Award"],
     links: { GitHub: "#", Devpost: "#", Demo: "#" }
   },
   {
     title: "Canvas Co-Pilot",
-    subtitle: "AI-powered academic assistant",
+    subtitle: "Hackathon/student web app",
     group: "Software + Web",
     image: "assets/images/canvas-copilot.jpg",
-    overview: "AI-powered academic assistant integrating the Canvas LMS API, Gemini AI, and Azure Custom Vision.",
+    overview: "Student assistant prototype that explored Canvas data, Gemini responses, and room occupancy ideas.",
     details: [
-      "Suggested study slots based on room occupancy data.",
-      "Built a responsive frontend with Tailwind CSS.",
-      "Supported natural language queries about assignments, grades, and study scheduling."
+      "Explored study-slot suggestions based on room occupancy data.",
+      "Worked on a Tailwind CSS frontend for the assistant interface.",
+      "Tested natural language queries around assignments, grades, and study scheduling."
     ],
     tech: ["Canvas API", "Gemini AI", "Azure Custom Vision", "Tailwind CSS", "JavaScript"],
-    badges: [],
+    badges: ["Student Project"],
     links: { GitHub: "#", Demo: "#" }
   },
   {
     title: "Mimic Robotic Arm Prototype",
-    subtitle: "Master-slave servo control system",
+    subtitle: "In progress - servo control prototype",
     group: "Robotics + Mechatronics",
     image: "assets/images/mimic-arm.jpg",
-    overview: "Master-slave robotic arm prototype where potentiometer inputs control servo motor positions through a microcontroller.",
+    overview: "In-progress robotics prototype exploring how input joints can map to servo motor movement.",
     details: [
-      "Prototyped a small robotic control system using potentiometers as input joints and servo motors as output joints.",
-      "Planned a custom 3D-printable structure around servo torque limits, linkage geometry, and joint spacing.",
-      "Focused on mechanical design, actuator placement, embedded control mapping, and iterative prototyping."
+      "Testing a small control setup where potentiometer inputs can map to servo positions.",
+      "Modeling 3D-printable parts while considering torque limits, linkage geometry, and joint spacing.",
+      "Currently focused on mechanical layout, actuator placement, and improving the control mapping."
     ],
     tech: ["Arduino/ESP32", "Servo Motors", "Potentiometers", "Fusion 360", "3D Printing"],
-    badges: ["In Progress", "Featured"],
+    badges: ["In Progress", "Prototype"],
     links: { GitHub: "#", "CAD Files": "#", Photos: "#" }
   },
   {
@@ -182,29 +182,29 @@ const projects = [
     subtitle: "Custom chassis autonomous robot",
     group: "Robotics + Mechatronics",
     image: "assets/images/line-following-robot.jpg",
-    overview: "Autonomous Arduino robot with a custom 3D-printed chassis designed for path following.",
+    overview: "Arduino robot project focused on chassis design, sensor placement, and line-following behavior.",
     details: [
-      "Designed and 3D printed a functional robot chassis.",
-      "Integrated Arduino-based navigation hardware and sensor array.",
-      "Tested sensor placement and chassis geometry through iterative adjustments."
+      "Modeled and 3D printed a small robot chassis.",
+      "Added Arduino-based navigation hardware and a sensor array.",
+      "Adjusted sensor placement and chassis geometry through testing."
     ],
     tech: ["Arduino", "CAD", "3D Printing", "Sensors", "Motor Control"],
-    badges: [],
+    badges: ["Learning Project"],
     links: { GitHub: "#", Photos: "#" }
   },
   {
     title: "E-Waste Upcycling Project",
-    subtitle: "Laptop camera to external USB webcam",
+    subtitle: "Learning project - laptop camera reuse",
     group: "Hardware + Repair",
     image: "assets/images/e-waste-webcam.jpg",
-    overview: "Hardware reuse project focused on converting old laptop components into functional external devices.",
+    overview: "Small hardware reuse project converting an old laptop camera module into an external USB webcam.",
     details: [
-      "Converted an old laptop camera into an external USB webcam through circuit tracing and soldering.",
-      "Practiced soldering, circuit tracing, component reuse, and hardware repair.",
-      "Connected the project to sustainability and right-to-repair interests."
+      "Traced the camera module connections and soldered the wiring needed for USB use.",
+      "Practiced component reuse, hardware repair, and careful circuit tracing.",
+      "Connected the project to personal interest in sustainability and right-to-repair."
     ],
     tech: ["Soldering", "Circuit Tracing", "USB Hardware", "Electronics Repair"],
-    badges: [],
+    badges: ["Learning Project"],
     links: { Photos: "#", Writeup: "#" }
   }
 ];
