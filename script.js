@@ -34,6 +34,53 @@ const projects = [
     links: { GitHub: "#", Report: "#", Photos: "#" }
   },
   {
+    title: "Digital Overcurrent Relay with Asset Fault Logging Dashboard",
+    subtitle: "Power systems / embedded systems prototype",
+    group: "Power Systems + Embedded Hardware",
+    image: "assets/images/digital-overcurrent-relay.jpg",
+    overview: "ESP32-based protection and monitoring prototype that measures voltage, current, and power with an INA219 sensor, detects overcurrent conditions, trips a relay to isolate the load, and logs fault events for maintenance analysis.",
+    sections: [
+      {
+        title: "What it does",
+        items: [
+          "Measures low-voltage DC load voltage, current, and power using an INA219 voltage/current sensor.",
+          "Uses normal, warning, and trip thresholds to simulate basic electrical asset protection behavior.",
+          "Controls an active-low relay module with latched trip logic and a manual reset button.",
+          "Shows local status through an I2C OLED display, status LEDs, and a buzzer alarm.",
+          "Prints CSV-style serial logs with asset ID, voltage, current, power, status, fault count, event type, and maintenance priority."
+        ]
+      },
+      {
+        title: "Why it matters",
+        items: [
+          "Models utility reliability workflows such as fault detection, equipment isolation, event logging, and maintenance prioritization.",
+          "Connects embedded sensing and relay control with the kind of structured fault data that could feed an Excel or Power BI dashboard.",
+          "Keeps the prototype realistic for student lab work by limiting testing to low-voltage DC loads for safety."
+        ]
+      },
+      {
+        title: "Future improvements",
+        items: [
+          "Add a real-time dashboard using Wi-Fi.",
+          "Add adjustable trip curves.",
+          "Add an enclosure and terminal blocks.",
+          "Add multiple asset IDs for transformer, feeder, and breaker simulations."
+        ]
+      }
+    ],
+    details: [
+      "Built a low-voltage digital overcurrent relay prototype using an ESP32 and INA219 voltage/current sensor.",
+      "Implemented normal, warning, and trip thresholds to simulate electrical asset protection behavior.",
+      "Added active-low relay control with latched trip logic and a manual reset button.",
+      "Integrated OLED display, status LEDs, and buzzer alarm for local relay status indication.",
+      "Generated CSV-style serial logs for maintenance analysis.",
+      "Designed the project to model utility reliability workflows while keeping testing limited to low-voltage DC loads for safety."
+    ],
+    tech: ["ESP32", "INA219", "I2C OLED", "Relay Module", "LEDs", "Buzzer", "Arduino/C++", "CSV Logging", "Excel/Power BI Dashboard Concept"],
+    badges: ["ESP32", "Power Systems", "Fault Logging", "Dashboard"],
+    links: { Photos: "#", Writeup: "#" }
+  },
+  {
     title: "IoT Calculator Interface",
     subtitle: "Lab-style embedded interface",
     group: "Embedded Systems + Microcontrollers",
@@ -320,7 +367,12 @@ function openProject(project) {
   document.getElementById("modalSubtitle").textContent = project.subtitle || "";
   document.getElementById("modalCategory").textContent = project.group;
   document.getElementById("modalOverview").textContent = project.overview;
-  document.getElementById("modalDetails").innerHTML = project.details.map(item => `<li>${escapeHtml(item)}</li>`).join("");
+  document.getElementById("modalDetailContent").innerHTML = project.sections
+    ? project.sections.map(section => `
+        <h3>${escapeHtml(section.title)}</h3>
+        <ul>${section.items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      `).join("")
+    : `<h3>Details</h3><ul>${project.details.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
   document.getElementById("modalTech").innerHTML = project.tech.map(makeTag).join("");
   document.getElementById("modalImage").classList.toggle("has-photo", Boolean(project.hasPhoto));
   document.getElementById("modalImage").innerHTML = project.hasPhoto
