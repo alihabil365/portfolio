@@ -4,6 +4,7 @@ const projects = [
     subtitle: "Hackathon project - wearable hardware interface",
     group: "Embedded Systems + Microcontrollers",
     image: "assets/images/specter-ai.jpg",
+    hasPhoto: true,
     overview: "Hackathon wearable that displayed cybersecurity alerts on a small hardware interface with an LCD, LEDs, buzzer, buttons, and a mode dial.",
     details: [
       "Worked on the wearable hardware interface and firmware during HackaBull 2026.",
@@ -310,11 +311,14 @@ function initExperienceSliders() {
     const dots = Array.from(slider.querySelectorAll("[data-slider-dot]"));
     const prevButton = slider.querySelector("[data-slider-prev]");
     const nextButton = slider.querySelector("[data-slider-next]");
+    if (!slides.length || !prevButton || !nextButton) return;
+
     let activeSlide = slides.findIndex(slide => slide.classList.contains("is-active"));
     if (activeSlide < 0) activeSlide = 0;
 
     const showSlide = nextSlide => {
       activeSlide = (nextSlide + slides.length) % slides.length;
+      slider.dataset.activeSlide = String(activeSlide);
       slides.forEach((slide, index) => slide.classList.toggle("is-active", index === activeSlide));
       dots.forEach((dot, index) => {
         const isActive = index === activeSlide;
@@ -323,10 +327,24 @@ function initExperienceSliders() {
       });
     };
 
-    prevButton.addEventListener("click", () => showSlide(activeSlide - 1));
-    nextButton.addEventListener("click", () => showSlide(activeSlide + 1));
-    dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => showSlide(index));
+    slider.addEventListener("click", event => {
+      const control = event.target.closest("[data-slider-prev], [data-slider-next], [data-slider-dot]");
+      if (!control || !slider.contains(control)) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (control.matches("[data-slider-prev]")) {
+        showSlide(activeSlide - 1);
+        return;
+      }
+
+      if (control.matches("[data-slider-next]")) {
+        showSlide(activeSlide + 1);
+        return;
+      }
+
+      showSlide(Number(control.dataset.sliderDot));
     });
     showSlide(activeSlide);
   });
