@@ -304,6 +304,34 @@ function initWindowControls() {
   });
 }
 
+function initExperienceSliders() {
+  document.querySelectorAll("[data-slider]").forEach(slider => {
+    const slides = Array.from(slider.querySelectorAll(".experience-slide"));
+    const dots = Array.from(slider.querySelectorAll("[data-slider-dot]"));
+    const prevButton = slider.querySelector("[data-slider-prev]");
+    const nextButton = slider.querySelector("[data-slider-next]");
+    let activeSlide = slides.findIndex(slide => slide.classList.contains("is-active"));
+    if (activeSlide < 0) activeSlide = 0;
+
+    const showSlide = nextSlide => {
+      activeSlide = (nextSlide + slides.length) % slides.length;
+      slides.forEach((slide, index) => slide.classList.toggle("is-active", index === activeSlide));
+      dots.forEach((dot, index) => {
+        const isActive = index === activeSlide;
+        dot.classList.toggle("is-active", isActive);
+        dot.setAttribute("aria-current", isActive ? "true" : "false");
+      });
+    };
+
+    prevButton.addEventListener("click", () => showSlide(activeSlide - 1));
+    nextButton.addEventListener("click", () => showSlide(activeSlide + 1));
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => showSlide(index));
+    });
+    showSlide(activeSlide);
+  });
+}
+
 function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, character => ({
     "&": "&amp;",
@@ -404,3 +432,4 @@ document.addEventListener("keydown", event => {
 renderTabs();
 renderProjects();
 initWindowControls();
+initExperienceSliders();
