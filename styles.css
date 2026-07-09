@@ -333,6 +333,18 @@ h3 { color: #2b2a22; }
   object-fit: cover;
   display: block;
 }
+.modal-image.has-gallery {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+  background: #e7e0c8;
+}
+.modal-image.has-gallery img {
+  min-height: 0;
+  border: 1px solid var(--border-mid);
+  background: #f7f5ee;
+}
 .project-thumb.has-photo img[src$="bartr-logo.png"],
 .modal-image.has-photo img[src$="bartr-logo.png"] {
   object-fit: contain;

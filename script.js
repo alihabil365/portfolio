@@ -200,15 +200,36 @@ const projects = [
     subtitle: "Hackathon/student web app",
     group: "Software + Web",
     image: "assets/images/canvas-copilot.jpg",
-    overview: "Student assistant prototype that explored Canvas data, Gemini responses, and room occupancy ideas.",
-    details: [
-      "Explored study-slot suggestions based on room occupancy data.",
-      "Worked on a Tailwind CSS frontend for the assistant interface.",
-      "Tested natural language queries around assignments, grades, and study scheduling."
+    imageLabel: "Canvas Co-Pilot",
+    overview: "One-day hackathon prototype for helping students organize, manage, and plan their studies through Canvas LMS data, AI responses, and computer vision ideas.",
+    sections: [
+      {
+        title: "What it did",
+        items: [
+          "Blended Canvas LMS, Azure Vision, and Google Gemini into a practical student assistant concept.",
+          "Explored study planning, assignment organization, and natural language support for student workflows.",
+          "Tested ideas around room occupancy and study-slot suggestions to help students save time and effort."
+        ]
+      },
+      {
+        title: "What I learned",
+        items: [
+          "Learned how to combine multiple APIs into a user-friendly solution.",
+          "Practiced designing a clear and accessible UI/UX for seamless student interactions.",
+          "Built stronger teamwork, debugging, and rapid prototyping habits during a one-day build."
+        ]
+      },
+      {
+        title: "Where I want to take it",
+        items: [
+          "I am proud of what the team accomplished in one day and want to keep developing Canvas Co-Pilot.",
+          "The long-term goal is to make it a usable Canvas extension that helps students organize, manage, and plan their studies more efficiently."
+        ]
+      }
     ],
     tech: ["Canvas API", "Gemini AI", "Azure Custom Vision", "Tailwind CSS", "JavaScript"],
-    badges: ["Student Project"],
-    links: { GitHub: "#", Demo: "#" }
+    badges: ["Hackathon", "Student Project"],
+    links: { Devpost: "https://lnkd.in/eDRSz3Zt", GitHub: "#", Demo: "#" }
   },
   {
     title: "Mimic Robotic Arm Prototype",
@@ -226,25 +247,59 @@ const projects = [
     links: { GitHub: "#", "CAD Files": "#", Photos: "#" }
   },
   {
-    title: "Arduino Line-Following Robot",
-    subtitle: "Custom chassis autonomous robot",
+    title: "Line-Following Tank Robot",
+    subtitle: "First-semester autonomous robotics project",
     group: "Robotics + Mechatronics",
-    image: "assets/images/line-following-robot.jpg",
-    overview: "Arduino robot project focused on chassis design, sensor placement, and line-following behavior.",
-    details: [
-      "Modeled and 3D printed a small robot chassis.",
-      "Added Arduino-based navigation hardware and a sensor array.",
-      "Adjusted sensor placement and chassis geometry through testing."
+    image: "assets/images/line-following-tank-perspective.png",
+    hasPhoto: true,
+    extraImages: [
+      "assets/images/line-following-tank-bottom.png"
     ],
-    tech: ["Arduino", "CAD", "3D Printing", "Sensors", "Motor Control"],
-    badges: ["Learning Project"],
+    overview: "First-semester Arduino tank robot designed to follow a line with IR sensors and detect obstacles with an ultrasonic sensor.",
+    sections: [
+      {
+        title: "My role",
+        items: [
+          "Served as the design and hardware lead for the project.",
+          "Focused on the tank-style chassis layout, sensor placement, motor mounting, and hardware integration.",
+          "Modeled the PLA chassis concept for 3D printing and planned space for the motors, H-bridges, Arduino, battery pack, IR sensors, and ultrasonic module."
+        ]
+      },
+      {
+        title: "Engineering specifications",
+        items: [
+          "Used a 3D-printed plastic / PLA chassis to keep the robot lightweight and easy to iterate.",
+          "Targeted a maximum speed of about 5 mph for safe operation in a controlled educational environment.",
+          "Designed the drive system around two H-bridges controlling four DC motors through Arduino logic.",
+          "Planned for at least 2 hours of continuous operation from a 4AA battery pack.",
+          "Used IR sensors for line following and an ultrasonic sensor for obstacle detection."
+        ]
+      },
+      {
+        title: "What I learned",
+        items: [
+          "Practiced turning design goals into measurable engineering specifications.",
+          "Learned how sensor placement, chassis geometry, and motor control affect autonomous robot behavior.",
+          "Built early experience coordinating mechanical design decisions with embedded hardware requirements."
+        ]
+      }
+    ],
+    details: [
+      "Led design and hardware integration for a first-semester Arduino tank robot.",
+      "Used IR sensors for path following and an ultrasonic sensor for obstacle detection.",
+      "Designed a PLA / 3D-printed chassis around four DC motors controlled by two H-bridges.",
+      "Targeted safe classroom operation with a maximum speed around 5 mph and a 4AA battery pack for extended use."
+    ],
+    tech: ["Arduino", "IR Sensors", "Ultrasonic Sensor", "H-Bridges", "DC Motors", "PLA Chassis", "CAD", "3D Printing"],
+    badges: ["Course Project", "Hardware Lead"],
     links: { GitHub: "#", Photos: "#" }
   },
   {
     title: "E-Waste Upcycling Project",
     subtitle: "Learning project - laptop camera reuse",
     group: "Hardware + Repair",
-    image: "assets/images/e-waste-webcam.jpg",
+    image: "assets/images/e-waste-webcam.png",
+    hasPhoto: true,
     overview: "Small hardware reuse project converting an old laptop camera module into an external USB webcam.",
     details: [
       "Traced the camera module connections and soldered the wiring needed for USB use.",
@@ -387,7 +442,7 @@ function renderProjects() {
       const projectIndex = projects.indexOf(project);
       const thumbContent = project.hasPhoto
         ? `<img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} photo">`
-        : `<span>${escapeHtml(group)}</span>`;
+        : `<span>${escapeHtml(project.imageLabel || group)}</span>`;
       return `
         <button class="project-card" data-index="${projectIndex}">
           <div class="project-thumb image-placeholder ${project.hasPhoto ? "has-photo" : ""}" data-image="${escapeHtml(project.image)}">${thumbContent}</div>
@@ -408,6 +463,7 @@ function renderProjects() {
 }
 
 function openProject(project) {
+  const modalImages = [project.image, ...(project.extraImages || [])];
   document.getElementById("modalWindowTitle").textContent = `${project.title}.txt`;
   document.getElementById("modalTitle").textContent = project.title;
   document.getElementById("modalSubtitle").textContent = project.subtitle || "";
@@ -421,9 +477,10 @@ function openProject(project) {
     : `<h3>Details</h3><ul>${project.details.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
   document.getElementById("modalTech").innerHTML = project.tech.map(makeTag).join("");
   document.getElementById("modalImage").classList.toggle("has-photo", Boolean(project.hasPhoto));
+  document.getElementById("modalImage").classList.toggle("has-gallery", project.hasPhoto && modalImages.length > 1);
   document.getElementById("modalImage").innerHTML = project.hasPhoto
-    ? `<img src="${project.image}" alt="${escapeHtml(project.title)} photo">`
-    : `<span>Image coming soon<br>${escapeHtml(project.image)}</span>`;
+    ? modalImages.map((image, index) => `<img src="${escapeHtml(image)}" alt="${escapeHtml(project.title)} ${index + 1}">`).join("")
+    : `<span>${escapeHtml(project.imageLabel || "Image coming soon")}</span>`;
   document.getElementById("modalLinks").innerHTML = Object.entries(project.links).map(([label, href]) => {
     const disabled = href === "#";
     return `<a class="xp-button" href="${disabled ? "" : escapeHtml(href)}" ${disabled ? "aria-disabled=\"true\" tabindex=\"-1\"" : "target=\"_blank\" rel=\"noreferrer\""}>${escapeHtml(label)}</a>`;
