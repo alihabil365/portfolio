@@ -1,5 +1,65 @@
 const projects = [
   {
+    title: "MSP430 Bluetooth-Controlled DC Motor System",
+    subtitle: "Embedded systems course project - motor control and wireless interfaces",
+    group: "Embedded Systems + Microcontrollers",
+    image: "assets/images/msp430-motor-control-thumbnail.jpg",
+    imageLabel: "Project thumbnail coming soon",
+    placeholderGallery: [
+      "Completed breadboard / hardware setup",
+      "Wiring diagram",
+      "LCD and keypad demonstration",
+      "Mobile Bluetooth control demonstration"
+    ],
+    overview: "An MSP430FR2355 embedded system that controls a 12 VDC motor through PWM, with keypad and smartphone speed control, real-time LCD feedback, and UART telemetry.",
+    sections: [
+      {
+        title: "Project objectives",
+        items: [
+          "Design, implement, and validate a reliable embedded system for controlling a 12 VDC motor from 0% to 100% speed.",
+          "Support both local keypad input and wireless commands from a phone while providing real-time user feedback and telemetry."
+        ]
+      },
+      {
+        title: "System architecture",
+        items: [
+          "Configured the MSP430FR2355 with an 8 MHz SMCLK and used Timer_B1 to generate an approximately 1 kHz PWM signal.",
+          "Continuously scanned keypad and Bluetooth input, validated commands, and updated the PWM duty cycle whenever the selected speed changed.",
+          "Updated the I2C LCD and UART terminal alongside the motor output so local status and debugging information stayed synchronized.",
+          "Detected the LCD automatically at I2C address 0x27 or 0x3F and continued operating with a UART error report if no display was found."
+        ]
+      },
+      {
+        title: "Controls and interfaces",
+        items: [
+          "Accepted numeric speed entry from 0% to 100% through a 4x4 matrix keypad, with # to confirm and * to clear.",
+          "Provided A, B, C, and D presets for 100%, 75%, 50%, and 0% motor speed.",
+          "Received wireless speed commands from a phone through an ADSD Tech HM-10 Bluetooth Low Energy module.",
+          "Displayed current speed and user input on a 16x2 LCD through a PCF8574 I2C backpack and sent concurrent telemetry over 9600-baud UART."
+        ]
+      },
+      {
+        title: "Results",
+        items: [
+          "Achieved stable, real-time PWM motor control across the full 0% to 100% duty-cycle range.",
+          "Integrated reliable software-debounced keypad scanning, BLE control, LCD status updates, and UART telemetry.",
+          "Capped invalid speed entries at 100% and preserved motor control when the optional LCD was unavailable."
+        ]
+      },
+      {
+        title: "Troubleshooting experience",
+        items: [
+          "Diagnosed an LCD communication failure by checking both the firmware and the physical I2C bus.",
+          "Found that a mislabeled breadboard wire had swapped SCL and SDA; correcting the wiring restored reliable communication without a software change.",
+          "The issue reinforced the importance of validating hardware connections and firmware together during system integration."
+        ]
+      }
+    ],
+    tech: ["MSP430FR2355", "Embedded C", "PWM", "Timer_B1", "Bluetooth Low Energy", "4x4 Keypad", "I2C", "UART", "PCF8574", "12 VDC Motor"],
+    badges: ["Course Project", "Embedded Systems", "Hardware"],
+    links: { "Watch Project Demo": "https://youtube.com/shorts/6byMVwUYGHE?is=ErQuvRxVcftZCQDK", "Source Code / GitHub": "#" }
+  },
+  {
     title: "SPECTER-AI Wearable Cybersecurity Alert System",
     subtitle: "Hackathon project - wearable hardware interface",
     group: "Embedded Systems + Microcontrollers",
@@ -464,6 +524,7 @@ function renderProjects() {
 
 function openProject(project) {
   const modalImages = [project.image, ...(project.extraImages || [])];
+  const placeholderGallery = project.placeholderGallery || [];
   document.getElementById("modalWindowTitle").textContent = `${project.title}.txt`;
   document.getElementById("modalTitle").textContent = project.title;
   document.getElementById("modalSubtitle").textContent = project.subtitle || "";
@@ -477,10 +538,12 @@ function openProject(project) {
     : `<h3>Details</h3><ul>${project.details.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
   document.getElementById("modalTech").innerHTML = project.tech.map(makeTag).join("");
   document.getElementById("modalImage").classList.toggle("has-photo", Boolean(project.hasPhoto));
-  document.getElementById("modalImage").classList.toggle("has-gallery", project.hasPhoto && modalImages.length > 1);
+  document.getElementById("modalImage").classList.toggle("has-gallery", (project.hasPhoto && modalImages.length > 1) || placeholderGallery.length > 0);
   document.getElementById("modalImage").innerHTML = project.hasPhoto
     ? modalImages.map((image, index) => `<img src="${escapeHtml(image)}" alt="${escapeHtml(project.title)} ${index + 1}">`).join("")
-    : `<span>${escapeHtml(project.imageLabel || "Image coming soon")}</span>`;
+    : placeholderGallery.length
+      ? placeholderGallery.map(label => `<div class="gallery-placeholder" role="img" aria-label="Placeholder for ${escapeHtml(label)}"><span>${escapeHtml(label)}</span></div>`).join("")
+      : `<span>${escapeHtml(project.imageLabel || "Image coming soon")}</span>`;
   document.getElementById("modalLinks").innerHTML = Object.entries(project.links).map(([label, href]) => {
     const disabled = href === "#";
     return `<a class="xp-button" href="${disabled ? "" : escapeHtml(href)}" ${disabled ? "aria-disabled=\"true\" tabindex=\"-1\"" : "target=\"_blank\" rel=\"noreferrer\""}>${escapeHtml(label)}</a>`;

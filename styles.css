@@ -340,6 +340,23 @@ h3 { color: #2b2a22; }
   padding: 8px;
   background: #e7e0c8;
 }
+.modal-image.has-gallery:has(.gallery-placeholder) {
+  grid-template: repeat(2, minmax(130px, 1fr)) / repeat(2, minmax(0, 1fr));
+  border-style: solid;
+}
+.gallery-placeholder {
+  min-width: 0;
+  padding: 12px;
+  border: 2px dashed #9f967b;
+  background: #d9d1b8;
+  color: #5e573f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+}
 .modal-image.has-gallery img {
   min-height: 0;
   border: 1px solid var(--border-mid);
@@ -546,4 +563,5 @@ ul { padding-left: 20px; }
   .task-pill { min-width: 0; flex: 1; }
   .task-clock { display: none; }
   h1 { font-size: 42px; }
+  .modal-image.has-gallery:has(.gallery-placeholder) { grid-template-columns: 1fr; }
 }
