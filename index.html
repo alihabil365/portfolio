@@ -5,9 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ali Habil - Electrical Engineering Portfolio</title>
   <meta name="description" content="Ali Habil electrical engineering portfolio: embedded systems, digital logic, MATLAB, robotics, software, and student projects." />
+  <meta name="theme-color" content="#202220" />
+  <link rel="icon" href="assets/images/ali-calligraphy-mark.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="modern.css" />
+  <link rel="stylesheet" href="desktop.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="desktop-bg">
     <header class="top-window shell-window">
       <div class="title-bar">
@@ -24,14 +29,16 @@
         <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
       </nav>
       <section class="hero content-panel" id="top">
         <div class="hero-copy">
           <p class="eyebrow">Electrical Engineering Student | USF | Class of 2027</p>
           <h1>Ali Habil</h1>
-          <p class="lead">Electrical Engineering student building small but practical projects in embedded systems, digital logic, robotics, MATLAB, and software.</p>
+          <p class="lead">I build at the intersection of hardware and software — from embedded controllers and digital logic to robotic prototypes.</p>
           <div class="hero-actions">
-            <a class="xp-button primary" href="#projects">View Projects</a>
+            <a class="xp-button primary" href="#projects">Explore my projects &rarr;</a>
+            <a class="xp-button" href="#contact">Get in touch</a>
             <a class="xp-button" href="https://github.com/alihabil365" target="_blank" rel="noreferrer">GitHub</a>
             <a class="xp-button" href="https://linkedin.com/in/ali-habil-8a12bb176" target="_blank" rel="noreferrer">LinkedIn</a>
             <a class="xp-button" href="mailto:alihabil2005@gmail.com">Email</a>
@@ -41,13 +48,13 @@
           <img class="profile-photo" src="./assets/images/ali-habil-profile.jpeg" alt="Ali Habil portrait" />
           <div class="quick-info">
             <div><b>Focus:</b> Embedded systems, digital logic, robotics, and hardware validation</div>
-            <div><b>Status:</b> Learning, building, and documenting student projects</div>
+            <div><b>Status:</b> Open to engineering internships</div>
           </div>
         </div>
       </section>
     </header>
 
-    <main>
+    <main id="main-content">
       <section id="about" class="shell-window section-window">
         <div class="title-bar"><span>About Ali</span><div class="window-controls"><span>_</span><span>[]</span><span>x</span></div></div>
         <div class="content-panel two-col">
@@ -73,14 +80,18 @@
             <article class="experience-card">
               <div class="experience-slider" data-slider="rare-lab" aria-label="RARE Lab photos">
                 <div class="experience-slide-frame">
-                  <img class="experience-slide is-active rare-lab-logo-slide" src="assets/images/rare-lab-logo.png" alt="RARE Lab logo" />
+                  <img class="experience-slide rare-lab-logo-slide" src="assets/images/rare-lab-logo.png" alt="RARE Lab logo" />
+                  <img class="experience-slide is-active" src="assets/images/rare-robot-front.jpg" alt="Blue 3D-printed RARE Lab robot torso and articulated arms, front view" loading="lazy" />
+                  <img class="experience-slide" src="assets/images/rare-robot-detail.jpg" alt="RARE Lab robot prototype with articulated arms and visible servo joints" loading="lazy" />
                   <img class="experience-slide" src="assets/images/rare-lab-hardware.jpg" alt="RARE Lab robotic hardware prototype on a workbench" />
                 </div>
                 <div class="experience-slider-controls">
                   <button class="slider-button" type="button" data-slider-prev aria-label="Previous RARE Lab photo">&lt;</button>
                   <div class="slider-dots" aria-label="RARE Lab photo selection">
-                    <button class="slider-dot is-active" type="button" data-slider-dot="0" aria-label="Show RARE Lab logo"></button>
-                    <button class="slider-dot" type="button" data-slider-dot="1" aria-label="Show RARE Lab hardware photo"></button>
+                    <button class="slider-dot" type="button" data-slider-dot="0" aria-label="Show RARE Lab logo"></button>
+                    <button class="slider-dot" type="button" data-slider-dot="1" aria-label="Show robot front view"></button>
+                  <button class="slider-dot" type="button" data-slider-dot="2" aria-label="Show robot detail view"></button>
+                    <button class="slider-dot" type="button" data-slider-dot="3" aria-label="Show hardware workbench"></button>
                   </div>
                   <button class="slider-button" type="button" data-slider-next aria-label="Next RARE Lab photo">&gt;</button>
                 </div>
@@ -103,6 +114,12 @@
                 <li>Helped create dashboard views and visualizations with Tailwind CSS, Plotly, and Chart.js.</li>
                 <li>Used Firebase, Stripe, testing, debugging, and QA workflows during internship tasks.</li>
               </ul>
+            </article>
+            <article class="experience-card">
+              <img class="experience-logo pes-logo" src="assets/images/ieee-pes-usf.png" alt="IEEE Power &amp; Energy Society, University of South Florida Student Branch Chapter" loading="lazy" width="400" height="400" />
+              <h3>Project Vice Chair</h3>
+              <p class="role-meta">IEEE Power &amp; Energy Society, University of South Florida</p>
+              <p>Student leadership in the USF IEEE PES chapter.</p>
             </article>
             <article class="experience-card">
               <h3>Resident Assistant</h3>
@@ -131,10 +148,12 @@
           <div class="section-heading-row">
             <div>
               <h2>Projects by Category</h2>
-              <p class="muted">Select a project card to see what it was for, what I used, and what is still in progress.</p>
+              <p class="muted">Browse by discipline, or search for a tool, technology, or project. Select a card for the full story.</p>
             </div>
           </div>
-          <div class="category-tabs" id="categoryTabs"></div>
+          <label class="project-search" for="projectSearch">Find a project<input id="projectSearch" type="search" placeholder="Search projects, tools, or technologies…" /></label>
+          <p id="projectCount" class="muted" role="status" aria-live="polite"></p>
+          <div class="category-tabs" id="categoryTabs" aria-label="Filter projects by discipline"></div>
           <div id="projectSections" class="project-sections"></div>
         </div>
       </section>
@@ -145,9 +164,9 @@
           <h2>Skills</h2>
           <div class="skills-grid">
             <article class="folder-card"><h3>Programming</h3><p>C/C++ | Python | JavaScript | TypeScript | HTML/CSS | MATLAB</p></article>
-            <article class="folder-card"><h3>Embedded / Hardware</h3><p>Arduino | Particle Argon | ESP32 | MSP430 boards | Assembly | INA219 | I2C displays | relays | keypads | sensors | servo motors | digital logic ICs | breadboarding | soldering</p></article>
+            <article class="folder-card"><h3>Embedded / Hardware</h3><p>Arduino | Particle Argon | ESP32 | MSP430 | Embedded C | Assembly | I2C | UART | Bluetooth Low Energy | PWM | Timers | Interrupts | Input debouncing | Motor control | Digital logic | Breadboarding | Soldering | Hardware integration</p></article>
             <article class="folder-card"><h3>Software / Web</h3><p>Next.js | Flask | Node.js | Tailwind CSS | Firebase | Supabase | Stripe | Plotly | Chart.js</p></article>
-            <article class="folder-card"><h3>Engineering Tools</h3><p>Git/GitHub | Fusion 360 | LTspice | KiCad | 3D printing | hardware debugging | hardware validation</p></article>
+            <article class="folder-card"><h3>Engineering Tools</h3><p>Git/GitHub | Fusion 360 | LTspice | KiCad schematic design | PCB design in progress | 3D printing | Hardware debugging | Hardware validation | Serial telemetry | Fault logging | MATLAB GUI design | FFT / PSD analysis | Convolution | Statistical analysis</p></article>
           </div>
         </div>
       </section>
@@ -218,6 +237,10 @@
     </div>
   </div>
 
+  <noscript><p class="noscript-note">Enable JavaScript to browse project details. You can still explore my experience and contact me by email.</p></noscript>
   <script src="script.js"></script>
+  <script src="desktop.js"></script>
 </body>
 </html>
+
+

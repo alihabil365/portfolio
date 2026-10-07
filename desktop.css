@@ -1,0 +1,25 @@
+[hidden] { display:none!important; }
+.desktop-mode .desktop-bg { padding:44px 32px 90px 172px; min-height:100vh; }
+.desktop-icons { position:fixed; top:28px; left:22px; width:112px; display:grid; gap:14px; z-index:5; }
+.desktop-shortcut { display:flex; flex-direction:column; align-items:center; gap:5px; padding:8px 4px; border:1px solid transparent; border-radius:4px; color:#f3f1e9; text-decoration:none; text-align:center; font:13px Tahoma,sans-serif; text-shadow:0 2px 3px #000; }
+.desktop-shortcut svg { width:58px; height:58px; filter:drop-shadow(2px 4px 2px #0005); }
+.desktop-shortcut:hover,.desktop-shortcut[aria-current] { background:#e1ebcf15; border-color:#b9cba345; }
+.desktop-shortcut:focus-visible { outline:2px solid #d8e6be; outline-offset:2px; background:#e1ebcf15; }
+.desktop-mode main > .shell-window,.desktop-mode .top-window { max-width:1140px; margin:0 auto; }
+.desktop-mode .desktop-bg::after { background-image:url("assets/images/pcb-watermark.svg"); background-position:right center; background-size:900px 900px; background-repeat:no-repeat; opacity:.3; }
+.desktop-mode .top-window { margin-top:clamp(10px,7vh,80px); }
+.desktop-mode .window-controls:has(.desktop-close) { pointer-events:auto; opacity:1; }
+.desktop-close { width:30px; height:27px; border:1px solid #828879; border-radius:3px; background:linear-gradient(#777d70,#41483c); color:#fff; font-size:21px; line-height:1; cursor:pointer; }
+.desktop-mode .title-bar { font-family:Tahoma,sans-serif; }
+.desktop-mode .hero { padding-top:60px; padding-bottom:60px; }
+.desktop-mode .taskbar { z-index:30; }
+.desktop-mode .task-pill { max-width:50vw; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+@media(max-width:700px) {
+  .desktop-mode .desktop-bg { padding:18px 10px 76px; }
+  .desktop-icons { position:relative; top:auto; left:auto; width:100%; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; margin-bottom:22px; }
+  .desktop-shortcut svg { width:44px; height:44px; }
+  .desktop-shortcut { font-size:12px; padding:9px 3px; }
+  .desktop-mode .top-window { margin-top:0; }
+  .desktop-mode .hero { padding:30px 20px; }
+}
+

@@ -98,7 +98,9 @@ const projects = [
     title: "Digital Overcurrent Relay with Asset Fault Logging Dashboard",
     subtitle: "Power systems / embedded systems prototype",
     group: "Power Systems + Embedded Hardware",
-    image: "assets/images/digital-overcurrent-relay.jpg",
+    image: "assets/images/ac-rms-protection-relay-schematic.png",
+    hasPhoto: true,
+    imageCaption: "AC RMS protection relay schematic — PCB under work.",
     overview: "ESP32-based protection and monitoring prototype that measures voltage, current, and power with an INA219 sensor, detects overcurrent conditions, trips a relay to isolate the load, and logs fault events for maintenance analysis.",
     sections: [
       {
@@ -138,8 +140,8 @@ const projects = [
       "Designed the project to model utility reliability workflows while keeping testing limited to low-voltage DC loads for safety."
     ],
     tech: ["ESP32", "INA219", "I2C OLED", "Relay Module", "LEDs", "Buzzer", "Arduino/C++", "CSV Logging", "Excel/Power BI Dashboard Concept"],
-    badges: ["ESP32", "Power Systems", "Fault Logging", "Dashboard"],
-    links: { Photos: "#", Writeup: "#" }
+    badges: ["ESP32", "Power Systems", "Fault Logging", "Dashboard", "PCB under work"],
+    links: { Schematic: "assets/images/ac-rms-protection-relay-schematic.png", Writeup: "#" }
   },
   {
     title: "IoT Calculator Interface",
@@ -374,6 +376,9 @@ const projects = [
 
 const groups = ["All", ...new Set(projects.map(project => project.group))];
 let activeGroup = "All";
+let searchQuery = "";
+let lastFocusedElement = null;
+const projectMatches = project => `${project.title} ${project.overview} ${project.tech.join(" ")}`.toLowerCase().includes(searchQuery);
 
 const categoryTabs = document.getElementById("categoryTabs");
 const projectSections = document.getElementById("projectSections");
@@ -381,45 +386,9 @@ const modalBackdrop = document.getElementById("modalBackdrop");
 const modalClose = document.getElementById("modalClose");
 
 function initWindowControls() {
-  document.querySelectorAll(".shell-window").forEach((windowEl, index) => {
-    const titleBar = windowEl.querySelector(".title-bar");
-    const controls = windowEl.querySelector(".window-controls");
-    if (!titleBar || !controls) return;
-
-    controls.removeAttribute("aria-hidden");
-    controls.querySelectorAll("span").forEach((control, controlIndex) => {
-      control.setAttribute("role", "button");
-      control.setAttribute("tabindex", "0");
-      const controlName = controlIndex === 0 ? "Minimize" : controlIndex === 1 ? "Restore" : "Hide";
-      control.setAttribute("aria-label", `${controlName} window`);
-      control.dataset.windowControl = controlName.toLowerCase();
-
-      const toggleWindow = event => {
-        event.stopPropagation();
-        const isMinimized = windowEl.classList.toggle("is-minimized");
-        windowEl.setAttribute("aria-expanded", String(!isMinimized));
-      };
-
-      control.addEventListener("click", toggleWindow);
-      control.addEventListener("keydown", event => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          toggleWindow(event);
-        }
-      });
-    });
-
-    titleBar.addEventListener("click", event => {
-      if (event.target.closest(".window-controls")) return;
-      if (!windowEl.classList.contains("is-minimized")) return;
-
-      windowEl.classList.remove("is-minimized");
-      windowEl.setAttribute("aria-expanded", "true");
-      if (index > 0) windowEl.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  });
+  // Decorative desktop chrome stays decorative; content is always available.
+  document.querySelectorAll(".window-controls").forEach(controls => controls.setAttribute("aria-hidden", "true"));
 }
-
 function initExperienceSliders() {
   document.querySelectorAll("[data-slider]").forEach(slider => {
     const slides = Array.from(slider.querySelectorAll(".experience-slide"));
@@ -485,7 +454,7 @@ function makeBadge(text) {
 }
 
 function renderTabs() {
-  categoryTabs.innerHTML = groups.map(group => `<button class="tab-button ${group === activeGroup ? "active" : ""}" data-group="${escapeHtml(group)}">${escapeHtml(group)}</button>`).join("");
+  categoryTabs.innerHTML = groups.map(group => `<button class="tab-button ${group === activeGroup ? "active" : ""}" aria-pressed="${group === activeGroup}" data-group="${escapeHtml(group)}">${escapeHtml(group)}</button>`).join("");
   categoryTabs.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", () => {
       activeGroup = button.dataset.group;
@@ -496,13 +465,13 @@ function renderTabs() {
 }
 
 function renderProjects() {
-  const visibleGroups = activeGroup === "All" ? groups.filter(group => group !== "All") : [activeGroup];
-  projectSections.innerHTML = visibleGroups.map(group => {
-    const cards = projects.filter(project => project.group === group).map((project, index) => {
+  const matchingProjects = projects.filter(project => (activeGroup === "All" || project.group === activeGroup) && projectMatches(project));
+  document.getElementById("projectCount").textContent = `${matchingProjects.length} of ${projects.length} projects`;
+  const cards = matchingProjects.map(project => {
       const projectIndex = projects.indexOf(project);
       const thumbContent = project.hasPhoto
-        ? `<img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} photo">`
-        : `<span>${escapeHtml(project.imageLabel || group)}</span>`;
+        ? `<img loading="lazy" decoding="async" src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} photo">`
+        : `<span>${escapeHtml(project.imageLabel || project.group)}</span>`;
       return `
         <button class="project-card" data-index="${projectIndex}">
           <div class="project-thumb image-placeholder ${project.hasPhoto ? "has-photo" : ""}" data-image="${escapeHtml(project.image)}">${thumbContent}</div>
@@ -514,15 +483,17 @@ function renderProjects() {
           </div>
         </button>`;
     }).join("");
-    return `<section class="project-category"><h3>${escapeHtml(group)}</h3><div class="project-grid">${cards}</div></section>`;
-  }).join("");
+  projectSections.innerHTML = `<div class="project-grid">${cards}</div>`;
 
+  if (!matchingProjects.length) projectSections.innerHTML = `<p class="empty-state">No projects match. Try another search or choose All.</p>`;
   projectSections.querySelectorAll(".project-card").forEach(card => {
     card.addEventListener("click", () => openProject(projects[Number(card.dataset.index)]));
   });
 }
 
 function openProject(project) {
+  lastFocusedElement = document.activeElement;
+  document.querySelector(".desktop-bg").inert = true;
   const modalImages = [project.image, ...(project.extraImages || [])];
   const placeholderGallery = project.placeholderGallery || [];
   document.getElementById("modalWindowTitle").textContent = `${project.title}.txt`;
@@ -544,19 +515,24 @@ function openProject(project) {
     : placeholderGallery.length
       ? placeholderGallery.map(label => `<div class="gallery-placeholder" role="img" aria-label="Placeholder for ${escapeHtml(label)}"><span>${escapeHtml(label)}</span></div>`).join("")
       : `<span>${escapeHtml(project.imageLabel || "Image coming soon")}</span>`;
-  document.getElementById("modalLinks").innerHTML = Object.entries(project.links).map(([label, href]) => {
+  if (project.imageCaption) document.getElementById("modalImage").insertAdjacentHTML("beforeend", `<p class="image-caption">${escapeHtml(project.imageCaption)}</p>`);
+  document.getElementById("modalLinks").innerHTML = Object.entries(project.links).filter(([, href]) => href && href !== "#").map(([label, href]) => {
     const disabled = href === "#";
     return `<a class="xp-button" href="${disabled ? "" : escapeHtml(href)}" ${disabled ? "aria-disabled=\"true\" tabindex=\"-1\"" : "target=\"_blank\" rel=\"noreferrer\""}>${escapeHtml(label)}</a>`;
   }).join("");
   modalBackdrop.classList.add("open");
   modalBackdrop.setAttribute("aria-hidden", "false");
+  if (!document.getElementById("modalLinks").children.length) document.getElementById("modalLinks").textContent = "Documentation is being prepared.";
   document.body.style.overflow = "hidden";
+  modalClose.focus();
 }
 
 function closeModal() {
   modalBackdrop.classList.remove("open");
   modalBackdrop.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  document.querySelector(".desktop-bg").inert = false;
+  lastFocusedElement?.focus();
 }
 
 modalClose.addEventListener("click", closeModal);
@@ -564,10 +540,24 @@ modalBackdrop.addEventListener("click", event => {
   if (event.target === modalBackdrop) closeModal();
 });
 document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeModal();
+  if (!modalBackdrop.classList.contains("open")) return;
+  if (event.key === "Escape") { event.preventDefault(); closeModal(); }
+  if (event.key === "Tab") {
+    const focusable = [...modalBackdrop.querySelectorAll('button, a[href]:not([aria-disabled="true"]), [tabindex="0"]')];
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  }
 });
 
+document.getElementById("projectSearch").addEventListener("input", event => {
+  searchQuery = event.target.value.trim().toLowerCase();
+  renderProjects();
+});
+document.querySelector(".stat-tile strong").textContent = String(projects.length);
 renderTabs();
 renderProjects();
 initWindowControls();
 initExperienceSliders();
+
+
