@@ -95,12 +95,11 @@ const projects = [
     links: { GitHub: "#", Report: "#", Photos: "#" }
   },
   {
-    title: "Digital Overcurrent Relay with Asset Fault Logging Dashboard",
-    subtitle: "Power systems / embedded systems prototype",
+    title: "DC Overcurrent Relay & Fault Logging",
+    subtitle: "Low-voltage DC prototype — hardware and firmware",
     group: "Power Systems + Embedded Hardware",
-    image: "assets/images/ac-rms-protection-relay-schematic.png",
-    hasPhoto: true,
-    imageCaption: "AC RMS protection relay schematic — PCB under work.",
+    image: "",
+    imageLabel: "DC protection + fault telemetry",
     overview: "ESP32-based protection and monitoring prototype that measures voltage, current, and power with an INA219 sensor, detects overcurrent conditions, trips a relay to isolate the load, and logs fault events for maintenance analysis.",
     sections: [
       {
@@ -140,9 +139,57 @@ const projects = [
       "Designed the project to model utility reliability workflows while keeping testing limited to low-voltage DC loads for safety."
     ],
     tech: ["ESP32", "INA219", "I2C OLED", "Relay Module", "LEDs", "Buzzer", "Arduino/C++", "CSV Logging", "Excel/Power BI Dashboard Concept"],
-    badges: ["ESP32", "Power Systems", "Fault Logging", "Dashboard", "PCB under work"],
-    links: { Schematic: "assets/images/ac-rms-protection-relay-schematic.png", Writeup: "#" }
+    badges: ["ESP32", "Power Systems", "Fault Logging", "Dashboard"],
+    links: {}
   },
+  {
+    "title": "AC RMS Protection Relay — PCB Design",
+    "subtitle": "Schematic design / PCB under work",
+    "group": "Power Systems + Embedded Hardware",
+    "image": "assets/images/ac-rms-protection-relay-schematic.png",
+    "hasPhoto": true,
+    "imageCaption": "AC RMS protection relay schematic — PCB under work.",
+    "overview": "A separate AC RMS protection relay design in KiCad. The schematic is available; PCB layout and hardware validation are still in progress.",
+    "sections": [
+        {
+            "title": "Design shown in the schematic",
+            "items": [
+                "ESP32-based controller with a 5 V input and 3.3 V regulation.",
+                "Current measurement input, relay driver, trip LED, buzzer, and reset/test controls.",
+                "AC input/load connections with fuse and varistor components shown in the schematic."
+            ]
+        },
+        {
+            "title": "Current status",
+            "items": [
+                "PCB under work. This image documents the schematic design, not a completed or validated PCB.",
+                "AC RMS measurement accuracy, protection behavior, and assembled hardware results have not yet been documented."
+            ]
+        },
+        {
+            "title": "How it differs from the DC prototype",
+            "items": [
+                "The DC prototype uses an INA219 for low-voltage sensing and firmware fault logging.",
+                "This entry covers the separate AC RMS schematic and planned PCB implementation."
+            ]
+        }
+    ],
+    "tech": [
+        "ESP32",
+        "KiCad",
+        "Schematic Design",
+        "PCB Layout",
+        "Relay Control",
+        "AC RMS"
+    ],
+    "badges": [
+        "In Progress",
+        "PCB under work"
+    ],
+    "links": {
+        "Schematic": "assets/images/ac-rms-protection-relay-schematic.png"
+    }
+},
   {
     title: "IoT Calculator Interface",
     subtitle: "Lab-style embedded interface",
@@ -374,6 +421,7 @@ const projects = [
   }
 ];
 
+const featuredTitles = ["MSP430 Bluetooth-Controlled DC Motor System", "SPECTER-AI Wearable Cybersecurity Alert System", "Line-Following Tank Robot"];
 const groups = ["All", ...new Set(projects.map(project => project.group))];
 let activeGroup = "All";
 let searchQuery = "";
@@ -467,7 +515,8 @@ function renderTabs() {
 function renderProjects() {
   const matchingProjects = projects.filter(project => (activeGroup === "All" || project.group === activeGroup) && projectMatches(project));
   document.getElementById("projectCount").textContent = `${matchingProjects.length} of ${projects.length} projects`;
-  const cards = matchingProjects.map(project => {
+  const orderedProjects = [...matchingProjects].sort((a,b) => Number(featuredTitles.includes(b.title)) - Number(featuredTitles.includes(a.title)));
+  const cards = orderedProjects.map(project => {
       const projectIndex = projects.indexOf(project);
       const thumbContent = project.hasPhoto
         ? `<img loading="lazy" decoding="async" src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} photo">`
@@ -476,7 +525,7 @@ function renderProjects() {
         <button class="project-card" data-index="${projectIndex}">
           <div class="project-thumb image-placeholder ${project.hasPhoto ? "has-photo" : ""}" data-image="${escapeHtml(project.image)}">${thumbContent}</div>
           <div class="project-card-body">
-            <div class="badges">${project.badges.map(makeBadge).join("")}</div>
+            <div class="badges">${featuredTitles.includes(project.title) ? makeBadge("Featured") : ""}${project.badges.map(makeBadge).join("")}</div>
             <h4>${escapeHtml(project.title)}</h4>
             <p>${escapeHtml(project.overview)}</p>
             <div class="tag-row">${project.tech.slice(0, 4).map(makeTag).join("")}</div>
