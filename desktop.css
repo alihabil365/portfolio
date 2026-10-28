@@ -43,3 +43,7 @@
   ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: Canvas; }
   ::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
 }
+
+.certificates-heading { margin-top: 32px; }
+.credential-card h4, #awards .folder-card h4 { margin: 0 0 12px; font-size: 18px; line-height: 1.4; }
+.credential-id { font-size: 13px; overflow-wrap: anywhere; color: #596052; }

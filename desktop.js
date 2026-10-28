@@ -4,7 +4,7 @@
     ["experience", "Experience", "case"],
     ["projects", "My Projects", "board"],
     ["skills", "My Toolkit", "chip"],
-    ["awards", "Awards", "chip"],
+    ["awards", "Awards & Certificates", "chip"],
     ["beyond-work", "Other Work", "camera"],
     ["contact", "Contact Me", "mail"]
   ];
