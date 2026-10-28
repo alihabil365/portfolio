@@ -27,3 +27,19 @@
 .desktop-mode .top-window, .desktop-mode main, .desktop-mode main > .shell-window { min-width: 0; width: 100%; }
 .desktop-mode .desktop-icons { max-height: calc(100vh - 90px); overflow-y: auto; }
 @media(max-width:700px) { .desktop-mode .desktop-icons { max-height: none; overflow: visible; } }
+
+/* Rounded desktop scrollbars, including project dialogs and app shortcuts. */
+:root { --scroll-track: #202620; --scroll-thumb: #89977a; --scroll-hover: #b1c19d; }
+* { scrollbar-width: auto; scrollbar-color: var(--scroll-thumb) var(--scroll-track); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--scroll-track); border-radius: 12px; }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border: 3px solid var(--scroll-track); border-radius: 12px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scroll-hover); }
+::-webkit-scrollbar-thumb:active { background: #cad6bb; }
+::-webkit-scrollbar-corner { background: var(--scroll-track); }
+.modal-body { scrollbar-gutter: stable; }
+@media (forced-colors: active) {
+  * { scrollbar-color: auto; }
+  ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: Canvas; }
+  ::-webkit-scrollbar-thumb { background: ButtonText; border-color: Canvas; }
+}
