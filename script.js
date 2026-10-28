@@ -3,14 +3,6 @@ const projects = [
     title: "MSP430 Bluetooth-Controlled DC Motor System",
     subtitle: "Embedded systems course project - motor control and wireless interfaces",
     group: "Embedded Systems + Microcontrollers",
-    image: "assets/images/msp430-motor-control-thumbnail.jpg",
-    imageLabel: "Project thumbnail coming soon",
-    placeholderGallery: [
-      "Completed breadboard / hardware setup",
-      "Wiring diagram",
-      "LCD and keypad demonstration",
-      "Mobile Bluetooth control demonstration"
-    ],
     overview: "An MSP430FR2355 embedded system that controls a 12 VDC motor through PWM, with keypad and smartphone speed control, real-time LCD feedback, and UART telemetry.",
     sections: [
       {
@@ -98,7 +90,6 @@ const projects = [
     title: "Digital Overcurrent Relay with Asset Fault Logging Dashboard",
     subtitle: "Power systems / embedded systems prototype",
     group: "Power Systems + Embedded Hardware",
-    image: "assets/images/digital-overcurrent-relay.jpg",
     overview: "ESP32-based protection and monitoring prototype that measures voltage, current, and power with an INA219 sensor, detects overcurrent conditions, trips a relay to isolate the load, and logs fault events for maintenance analysis.",
     sections: [
       {
@@ -145,7 +136,6 @@ const projects = [
     title: "IoT Calculator Interface",
     subtitle: "Lab-style embedded interface",
     group: "Embedded Systems + Microcontrollers",
-    image: "assets/images/iot-calculator.jpg",
     overview: "Small embedded calculator interface using a Particle Argon, 4x4 keypad, and 16x2 I2C LCD.",
     details: [
       "Practiced parsing keypad input and showing arithmetic results on an LCD.",
@@ -194,7 +184,6 @@ const projects = [
     title: "MATLAB Audio Processing GUI",
     subtitle: "Course-style MATLAB audio tool",
     group: "MATLAB + Signal Processing",
-    image: "assets/images/audio-gui.jpg",
     overview: "MATLAB GUI for experimenting with audio effects, filtering, playback, and PSD comparison.",
     details: [
       "Created a MATLAB App Designer-style interface with audio loading, status feedback, and playback controls.",
@@ -211,7 +200,6 @@ const projects = [
     title: "Convolution Tutor MATLAB GUI",
     subtitle: "Educational MATLAB visualizer",
     group: "MATLAB + Signal Processing",
-    image: "assets/images/convolution-tutor.jpg",
     overview: "Educational MATLAB GUI for visualizing convolution step by step.",
     details: [
       "Made a tutoring-style interface focused on understanding convolution.",
@@ -226,7 +214,6 @@ const projects = [
     title: "One-Way ANOVA MATLAB GUI",
     subtitle: "Educational statistics GUI",
     group: "MATLAB + Signal Processing",
-    image: "assets/images/anova-gui.jpg",
     overview: "MATLAB GUI for practicing one-way ANOVA calculations and visualizing grouped data.",
     details: [
       "Created an interface for entering or loading grouped data.",
@@ -259,8 +246,6 @@ const projects = [
     title: "Canvas Co-Pilot",
     subtitle: "Hackathon/student web app",
     group: "Software + Web",
-    image: "assets/images/canvas-copilot.jpg",
-    imageLabel: "Canvas Co-Pilot",
     overview: "One-day hackathon prototype for helping students organize, manage, and plan their studies through Canvas LMS data, AI responses, and computer vision ideas.",
     sections: [
       {
@@ -295,7 +280,6 @@ const projects = [
     title: "Mimic Robotic Arm Prototype",
     subtitle: "In progress - servo control prototype",
     group: "Robotics + Mechatronics",
-    image: "assets/images/mimic-arm.jpg",
     overview: "In-progress robotics prototype exploring how input joints can map to servo motor movement.",
     details: [
       "Testing a small control setup where potentiometer inputs can map to servo positions.",
@@ -372,202 +356,200 @@ const projects = [
   }
 ];
 
-const groups = ["All", ...new Set(projects.map(project => project.group))];
-let activeGroup = "All";
-
-const categoryTabs = document.getElementById("categoryTabs");
-const projectSections = document.getElementById("projectSections");
-const modalBackdrop = document.getElementById("modalBackdrop");
-const modalClose = document.getElementById("modalClose");
-
-function initWindowControls() {
-  document.querySelectorAll(".shell-window").forEach((windowEl, index) => {
-    const titleBar = windowEl.querySelector(".title-bar");
-    const controls = windowEl.querySelector(".window-controls");
-    if (!titleBar || !controls) return;
-
-    controls.removeAttribute("aria-hidden");
-    controls.querySelectorAll("span").forEach((control, controlIndex) => {
-      control.setAttribute("role", "button");
-      control.setAttribute("tabindex", "0");
-      const controlName = controlIndex === 0 ? "Minimize" : controlIndex === 1 ? "Restore" : "Hide";
-      control.setAttribute("aria-label", `${controlName} window`);
-      control.dataset.windowControl = controlName.toLowerCase();
-
-      const toggleWindow = event => {
-        event.stopPropagation();
-        const isMinimized = windowEl.classList.toggle("is-minimized");
-        windowEl.setAttribute("aria-expanded", String(!isMinimized));
-      };
-
-      control.addEventListener("click", toggleWindow);
-      control.addEventListener("keydown", event => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          toggleWindow(event);
+const updatedRelays = [
+{
+    title: "DC Overcurrent Relay & Fault Logging",
+    subtitle: "Low-voltage DC prototype — hardware and firmware",
+    group: "Power Systems",
+    image: "",
+    overview: "ESP32-based protection and monitoring prototype that measures voltage, current, and power with an INA219 sensor, detects overcurrent conditions, trips a relay to isolate the load, and logs fault events for maintenance analysis.",
+    sections: [
+      {
+        title: "What it does",
+        items: [
+          "Measures low-voltage DC load voltage, current, and power using an INA219 voltage/current sensor.",
+          "Uses normal, warning, and trip thresholds to simulate basic electrical asset protection behavior.",
+          "Controls an active-low relay module with latched trip logic and a manual reset button.",
+          "Shows local status through an I2C OLED display, status LEDs, and a buzzer alarm.",
+          "Prints CSV-style serial logs with asset ID, voltage, current, power, status, fault count, event type, and maintenance priority."
+        ]
+      },
+      {
+        title: "Why it matters",
+        items: [
+          "Models utility reliability workflows such as fault detection, equipment isolation, event logging, and maintenance prioritization.",
+          "Connects embedded sensing and relay control with the kind of structured fault data that could feed an Excel or Power BI dashboard.",
+          "Keeps the prototype realistic for student lab work by limiting testing to low-voltage DC loads for safety."
+        ]
+      },
+      {
+        title: "Future improvements",
+        items: [
+          "Add a real-time dashboard using Wi-Fi.",
+          "Add adjustable trip curves.",
+          "Add an enclosure and terminal blocks.",
+          "Add multiple asset IDs for transformer, feeder, and breaker simulations."
+        ]
+      }
+    ],
+    details: [
+      "Built a low-voltage digital overcurrent relay prototype using an ESP32 and INA219 voltage/current sensor.",
+      "Implemented normal, warning, and trip thresholds to simulate electrical asset protection behavior.",
+      "Added active-low relay control with latched trip logic and a manual reset button.",
+      "Integrated OLED display, status LEDs, and buzzer alarm for local relay status indication.",
+      "Generated CSV-style serial logs for maintenance analysis.",
+      "Designed the project to model utility reliability workflows while keeping testing limited to low-voltage DC loads for safety."
+    ],
+    tech: ["ESP32", "INA219", "I2C OLED", "Relay Module", "LEDs", "Buzzer", "Arduino/C++", "CSV Logging", "Excel/Power BI Dashboard Concept"],
+    badges: ["ESP32", "Power Systems", "Fault Logging", "Dashboard"],
+    links: {}
+  },
+  {
+    "title": "AC RMS Protection Relay — PCB Design",
+    "subtitle": "Schematic design / PCB under work",
+    "group": "Power Systems",
+    "image": "assets/images/ac-rms-protection-relay-schematic.png",
+    "hasPhoto": true,
+    "imageCaption": "AC RMS protection relay schematic — PCB under work.",
+    "overview": "A separate AC RMS protection relay design in KiCad. The schematic is available; PCB layout and hardware validation are still in progress.",
+    "sections": [
+        {
+            "title": "Design shown in the schematic",
+            "items": [
+                "ESP32-based controller with a 5 V input and 3.3 V regulation.",
+                "Current measurement input, relay driver, trip LED, buzzer, and reset/test controls.",
+                "AC input/load connections with fuse and varistor components shown in the schematic."
+            ]
+        },
+        {
+            "title": "Current status",
+            "items": [
+                "PCB under work. This image documents the schematic design, not a completed or validated PCB.",
+                "AC RMS measurement accuracy, protection behavior, and assembled hardware results have not yet been documented."
+            ]
+        },
+        {
+            "title": "How it differs from the DC prototype",
+            "items": [
+                "The DC prototype uses an INA219 for low-voltage sensing and firmware fault logging.",
+                "This entry covers the separate AC RMS schematic and planned PCB implementation."
+            ]
         }
-      });
-    });
-
-    titleBar.addEventListener("click", event => {
-      if (event.target.closest(".window-controls")) return;
-      if (!windowEl.classList.contains("is-minimized")) return;
-
-      windowEl.classList.remove("is-minimized");
-      windowEl.setAttribute("aria-expanded", "true");
-      if (index > 0) windowEl.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  });
+    ],
+    "tech": [
+        "ESP32",
+        "KiCad",
+        "Schematic Design",
+        "PCB Layout",
+        "Relay Control",
+        "AC RMS"
+    ],
+    "badges": [
+        "In Progress",
+        "PCB under work"
+    ],
+    "links": {
+        "Schematic": "assets/images/ac-rms-protection-relay-schematic.png"
+    }
 }
-
-function initExperienceSliders() {
-  document.querySelectorAll("[data-slider]").forEach(slider => {
-    const slides = Array.from(slider.querySelectorAll(".experience-slide"));
-    const dots = Array.from(slider.querySelectorAll("[data-slider-dot]"));
-    const prevButton = slider.querySelector("[data-slider-prev]");
-    const nextButton = slider.querySelector("[data-slider-next]");
-    if (!slides.length || !prevButton || !nextButton) return;
-
-    let activeSlide = slides.findIndex(slide => slide.classList.contains("is-active"));
-    if (activeSlide < 0) activeSlide = 0;
-
-    const showSlide = nextSlide => {
-      activeSlide = (nextSlide + slides.length) % slides.length;
-      slider.dataset.activeSlide = String(activeSlide);
-      slides.forEach((slide, index) => slide.classList.toggle("is-active", index === activeSlide));
-      dots.forEach((dot, index) => {
-        const isActive = index === activeSlide;
-        dot.classList.toggle("is-active", isActive);
-        dot.setAttribute("aria-current", isActive ? "true" : "false");
-      });
-    };
-
-    slider.addEventListener("click", event => {
-      const control = event.target.closest("[data-slider-prev], [data-slider-next], [data-slider-dot]");
-      if (!control || !slider.contains(control)) return;
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      if (control.matches("[data-slider-prev]")) {
-        showSlide(activeSlide - 1);
-        return;
-      }
-
-      if (control.matches("[data-slider-next]")) {
-        showSlide(activeSlide + 1);
-        return;
-      }
-
-      showSlide(Number(control.dataset.sliderDot));
-    });
-    showSlide(activeSlide);
-  });
-}
-
-function escapeHtml(text) {
-  return String(text).replace(/[&<>"']/g, character => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    "\"": "&quot;",
-    "'": "&#39;"
-  }[character]));
-}
-
-function makeTag(text) {
-  return `<span class="tag">${escapeHtml(text)}</span>`;
-}
-
-function makeBadge(text) {
-  const className = text === "Award" ? "badge award" : text === "In Progress" ? "badge progress" : "badge";
-  return `<span class="${className}">${escapeHtml(text)}</span>`;
-}
-
+];
+const relay = updatedRelays[0];
+projects.splice(projects.findIndex(p => p.title.startsWith("Digital Overcurrent")),1,relay);
+projects.push(updatedRelays[1]);
+const fpga = {title:'8-Bit FPGA Accumulating Calculator',subtitle:'October 2026 | Verilog design and simulation',group:'FPGA / Digital Design',overview:'Designed and simulated an 8-bit accumulating arithmetic calculator in Verilog, implementing sequential addition and subtraction through custom combinational and sequential logic.',tech:['Artix-7','Basys 3','Vivado','Verilog HDL','RTL Simulation','Digital Logic'],badges:['RTL Simulation'],status:'Simulation verified; physical board testing not documented',sections:[{title:'Engineering objective',items:['Build a sequential circuit that accumulates successive arithmetic operations.']},{title:'System architecture',items:['4-bit operand input → 8-bit adder/subtractor → 8-bit accumulator → output.','The accumulator output feeds back into the arithmetic circuit.']},{title:'Implementation',items:['Connected 1-bit full adders to form an 8-bit ripple-carry adder/subtractor.','Used XOR-controlled operand inversion for two’s-complement subtraction.','Developed the accumulator with enabled D flip-flops and reset logic.','Integrated synchronized push-button inputs, pulse generation, and edge detection.','Mapped FPGA inputs and outputs using a Basys 3 XDC constraints file.']},{title:'Testing and validation',items:['Verified positive, negative, and sequential arithmetic operations using Vivado simulation testbenches and waveform inspection.','Physical FPGA board testing is not documented.']}],links:{}};
+fpga.image = 'assets/images/fpga-calculator-rtl.png';
+fpga.extraImages = ['assets/images/fpga-calculator-waveform.png', 'assets/images/fpga-calculator-simulation-log.png', 'assets/docs/fpga-reference/IMG_8899.jpeg'];
+fpga.imageDescriptions = {
+ 'assets/images/fpga-calculator-rtl.png': 'Vivado RTL schematic showing the adder/subtractor, accumulator feedback, and synchronized add/subtract pulse generators.',
+ 'assets/images/fpga-calculator-waveform.png': 'Vivado waveform showing clock, reset, add/subtract commands, 4-bit operand input, and signed accumulator results.',
+ 'assets/images/fpga-calculator-simulation-log.png': 'Supplied simulation transcript: 16 PASS entries covering reset, positive and negative results, sequential operations, and held-add input.',
+ 'assets/docs/fpga-reference/IMG_8899.jpeg': 'Supplied Basys 3 board photograph showing power, programming, and output LEDs. This photograph alone does not establish arithmetic test coverage.'
+};
+fpga.links = {'Verilog source': 'assets/code/fpga-calculator.v', 'Full-size RTL schematic': fpga.image, 'Full-size waveform': fpga.extraImages[0], 'Simulation results': fpga.extraImages[1]};
+fpga.status = 'RTL simulation documented; Basys 3 board photographs supplied';
+const validation = fpga.sections.find(section => section.title === 'Testing and validation');
+validation.items = [
+ 'The supplied simulation transcript contains 16 PASS entries, including initial and final resets, sequential addition and subtraction, a held-add input, and a zero operand.',
+ 'Example sequence: 0 + 5 = 5; +7 = 12; −3 = 9; +10 = 19; −12 = 7; −9 = −2; +4 = 2.',
+ 'The waveform corroborates positive and negative accumulator values, including 7 − 9 = −2 and 8 − 12 = −4.',
+ 'Basys 3 photographs document the physical board setup. A recorded hardware arithmetic test sequence and the simulation testbench were not supplied.'
+];
+fpga.sections.find(section => section.title === 'Implementation').items.push('The source XORs the synchronized add and subtract pulses to enable the accumulator, so simultaneous pulses do not update the result.');
+fpga.sections.find(section => section.title === 'Implementation').items = fpga.sections.find(section => section.title === 'Implementation').items.filter(item => !item.startsWith('Mapped FPGA'));
+fpga.sections.push({title:'Available source and verification limits',items:['The supplied Verilog includes one_bit_adder, adder_subtractor, enabled D_FF, accumlator, pulse_gen, and continuous_add_sub modules.', 'The two-stage button synchronizer and rising-edge pulse detector are visible in the source; switch debouncing is not implemented.', 'The Basys 3 XDC constraints file and simulation testbench are not included in the supplied files. The screenshots record prior simulation results; simulation has not been rerun here.']});
+const plc = {title:'PLC Water Tank Control and HMI System',subtitle:'Controls / Industrial Automation',group:'Controls / Automation',overview:'Developed a PLC-based water tank control system with automated filling logic, HMI monitoring, tank-level visualization, and overflow prevention.',tech:['PLC','HMI','Control Logic','Automation'],badges:[],details:['Implemented PLC control logic for water tank filling.','Created HMI visualization of tank level and filling speed/rate.','Incorporated overflow-prevention logic.','Integrated control functionality with operator monitoring.'],links:{}};
+const grid = {title:'IEEE PES Smart-Grid Educational Game',subtitle:'Power Systems / Engineering Outreach',group:'Power Systems',overview:'Developing an interactive educational smart-grid demonstration that teaches K–8 students about electricity distribution, generator availability, and power system protection.',tech:['ESP32','Power Distribution','Protection Concepts','Engineering Outreach'],badges:['In Development'],status:'In development — features below are planned',sections:[{title:'Engineering objective',items:['Create a hands-on science-fair experience explaining generation, distribution, and protection to K–8 students.']},{title:'Planned features',items:['Miniature electrical grid with multiple generators.','Physical toggle switches to simulate generator availability.','ESP32-based monitoring and system interaction.','Game dashboard displaying grid status and protection events.','Educational scenarios involving generation, load management, and faults.']}],links:{}};
+const specter = projects.find(p => p.title.startsWith('SPECTER'));
+specter.subtitle = 'April 2026 | HackaBull 2026 — Tech for Good Award';
+specter.overview = 'Developed an embedded wearable hardware interface that delivers security alerts through an LCD, LEDs, buzzer, and interactive controls.';
+specter.badges = ['Tech for Good Award','HackaBull 2026'];
+const access = projects.find(p => p.title === 'Embedded Access Control System');
+access.overview = 'Built a microcontroller-based access control prototype integrating keypad entry, digital logic, electromechanical actuation, and hardware-assisted fail-safe behavior.';
+access.tech = ['Arduino','74LSXX Logic','Servo','I2C','RC Circuits','Keypad'];
+access.details.push('Integrated servo actuation with the keypad and display interface.');
+const names = {'Embedded Systems + Microcontrollers':'Embedded Systems','Power Systems + Embedded Hardware':'Power Systems','Digital Logic + Circuits':'FPGA / Digital Design','Robotics + Mechatronics':'Robotics','Hardware + Repair':'Electronics / Repair'};
+projects.forEach(p => { p.group = names[p.group] || (/Software|MATLAB|Web/.test(p.group) ? 'Software' : p.group); p.links = Object.fromEntries(Object.entries(p.links).filter(([,href]) => href && href !== '#')); });
+const featured = [relay,fpga,plc,specter,access,grid];
+projects.splice(0,projects.length,...featured,...projects.filter(p => !featured.includes(p)));
+projects.forEach((p,i) => { p.featured = i < 6; p.slug = p.title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-$/,''); });
+const groups = ['All',...new Set(projects.map(p => p.group))];
+let activeGroup = 'All', modalTrigger = null, searchQuery = '';
+document.getElementById('projectSearch').addEventListener('input', event => { searchQuery = event.target.value.trim().toLowerCase(); renderProjects(); });
+const categoryTabs = document.getElementById('categoryTabs'), projectSections = document.getElementById('projectSections'), modalBackdrop = document.getElementById('modalBackdrop'), modalClose = document.getElementById('modalClose');
+function escapeHtml(value) { return String(value).replace(/[&<>"']/g,c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const makeTag = text => `<span class="tag">${escapeHtml(text)}</span>`;
+const makeBadge = text => `<span class="badge ${/Award/.test(text) ? 'award' : ''}">${escapeHtml(text)}</span>`;
 function renderTabs() {
-  categoryTabs.innerHTML = groups.map(group => `<button class="tab-button ${group === activeGroup ? "active" : ""}" data-group="${escapeHtml(group)}">${escapeHtml(group)}</button>`).join("");
-  categoryTabs.querySelectorAll("button").forEach(button => {
-    button.addEventListener("click", () => {
-      activeGroup = button.dataset.group;
-      renderTabs();
-      renderProjects();
-    });
-  });
+ categoryTabs.innerHTML = groups.map(g => `<button type="button" class="tab-button ${g === activeGroup ? 'active' : ''}" aria-pressed="${g === activeGroup}" data-group="${escapeHtml(g)}">${escapeHtml(g)}</button>`).join('');
+ categoryTabs.querySelectorAll('button').forEach(button => button.onclick = () => { activeGroup = button.dataset.group; renderTabs(); renderProjects(); [...categoryTabs.children].find(b => b.dataset.group === activeGroup).focus(); });
 }
-
 function renderProjects() {
-  const visibleGroups = activeGroup === "All" ? groups.filter(group => group !== "All") : [activeGroup];
-  projectSections.innerHTML = visibleGroups.map(group => {
-    const cards = projects.filter(project => project.group === group).map((project, index) => {
-      const projectIndex = projects.indexOf(project);
-      const thumbContent = project.hasPhoto
-        ? `<img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)} photo">`
-        : `<span>${escapeHtml(project.imageLabel || group)}</span>`;
-      return `
-        <button class="project-card" data-index="${projectIndex}">
-          <div class="project-thumb image-placeholder ${project.hasPhoto ? "has-photo" : ""}" data-image="${escapeHtml(project.image)}">${thumbContent}</div>
-          <div class="project-card-body">
-            <div class="badges">${project.badges.map(makeBadge).join("")}</div>
-            <h4>${escapeHtml(project.title)}</h4>
-            <p>${escapeHtml(project.overview)}</p>
-            <div class="tag-row">${project.tech.slice(0, 4).map(makeTag).join("")}</div>
-          </div>
-        </button>`;
-    }).join("");
-    return `<section class="project-category"><h3>${escapeHtml(group)}</h3><div class="project-grid">${cards}</div></section>`;
-  }).join("");
-
-  projectSections.querySelectorAll(".project-card").forEach(card => {
-    card.addEventListener("click", () => openProject(projects[Number(card.dataset.index)]));
-  });
+ const sections = activeGroup === 'All' ? ['Featured Engineering',...groups.slice(1)] : [activeGroup];
+ projectSections.innerHTML = sections.map(group => {
+  const visible = projects.filter(p => !searchQuery || [p.title,p.overview,p.group,...p.tech].join(' ').toLowerCase().includes(searchQuery)).filter(p => group === 'Featured Engineering' ? p.featured : p.group === group && (activeGroup !== 'All' || !p.featured));
+  if (!visible.length) return '';
+  return `<section class="project-category"><h3>${escapeHtml(group)}</h3><div class="project-grid">${visible.map(p => `<button type="button" class="project-card" data-index="${projects.indexOf(p)}">${p.demoGif || p.image ? `<div class="project-thumb has-photo"><img src="${escapeHtml(p.demoGif || p.image)}" alt="${escapeHtml(p.imageDescriptions?.[p.demoGif || p.image] || `${p.title} — project image`)}" loading="lazy" decoding="async"></div>` : ''}<div class="project-card-body"><p class="card-category">${escapeHtml(p.group)}</p><div class="badges">${p.badges.map(makeBadge).join('')}</div><h4>${escapeHtml(p.title)}</h4><p>${escapeHtml(p.overview)}</p>${p.status ? `<p class="project-status">${escapeHtml(p.status)}</p>` : ''}<div class="tag-row">${p.tech.slice(0,5).map(makeTag).join('')}</div></div></button>`).join('')}</div></section>`;
+ }).join('');
+ projectSections.querySelectorAll('.project-card').forEach(card => card.onclick = () => openProject(projects[Number(card.dataset.index)]));
+ projectSections.querySelectorAll('img').forEach(img => img.onerror = () => img.parentElement.remove());
 }
-
-function openProject(project) {
-  const modalImages = [project.image, ...(project.extraImages || [])];
-  const placeholderGallery = project.placeholderGallery || [];
-  document.getElementById("modalWindowTitle").textContent = `${project.title}.txt`;
-  document.getElementById("modalTitle").textContent = project.title;
-  document.getElementById("modalSubtitle").textContent = project.subtitle || "";
-  document.getElementById("modalCategory").textContent = project.group;
-  document.getElementById("modalOverview").textContent = project.overview;
-  document.getElementById("modalDetailContent").innerHTML = project.sections
-    ? project.sections.map(section => `
-        <h3>${escapeHtml(section.title)}</h3>
-        <ul>${section.items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-      `).join("")
-    : `<h3>Details</h3><ul>${project.details.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
-  document.getElementById("modalTech").innerHTML = project.tech.map(makeTag).join("");
-  document.getElementById("modalImage").classList.toggle("has-photo", Boolean(project.hasPhoto));
-  document.getElementById("modalImage").classList.toggle("has-gallery", (project.hasPhoto && modalImages.length > 1) || placeholderGallery.length > 0);
-  document.getElementById("modalImage").innerHTML = project.hasPhoto
-    ? modalImages.map((image, index) => `<img src="${escapeHtml(image)}" alt="${escapeHtml(project.title)} ${index + 1}">`).join("")
-    : placeholderGallery.length
-      ? placeholderGallery.map(label => `<div class="gallery-placeholder" role="img" aria-label="Placeholder for ${escapeHtml(label)}"><span>${escapeHtml(label)}</span></div>`).join("")
-      : `<span>${escapeHtml(project.imageLabel || "Image coming soon")}</span>`;
-  document.getElementById("modalLinks").innerHTML = Object.entries(project.links).map(([label, href]) => {
-    const disabled = href === "#";
-    return `<a class="xp-button" href="${disabled ? "" : escapeHtml(href)}" ${disabled ? "aria-disabled=\"true\" tabindex=\"-1\"" : "target=\"_blank\" rel=\"noreferrer\""}>${escapeHtml(label)}</a>`;
-  }).join("");
-  modalBackdrop.classList.add("open");
-  modalBackdrop.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
+function openProject(p) {
+ if (!modalBackdrop.classList.contains('open')) modalTrigger = document.activeElement;
+ history.replaceState(null,'',`#project=${p.slug}`);
+ for (const [id,value] of Object.entries({modalWindowTitle:p.title,modalTitle:p.title,modalSubtitle:p.subtitle || '',modalCategory:p.group,modalOverview:p.overview})) document.getElementById(id).textContent = value;
+ document.getElementById('modalDetailContent').innerHTML = (p.sections || [{title:'Implementation highlights',items:p.details || []}]).map(section => `<h3>${escapeHtml(section.title)}</h3><ul>${section.items.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`).join('') + (p.status ? `<h3>Current status</h3><p>${escapeHtml(p.status)}</p>` : '');
+ document.getElementById('modalTech').innerHTML = p.tech.map(makeTag).join('');
+ const panel = document.getElementById('modalImage'), images = [...new Set([p.demoGif,p.image,...(p.extraImages || [])].filter(Boolean))];
+ panel.hidden = !images.length; panel.parentElement.classList.toggle('text-only', !images.length); panel.className = 'modal-image has-photo has-gallery';
+ panel.innerHTML = images.map((src,i) => `<figure><a href="${escapeHtml(src)}" target="_blank" rel="noreferrer" aria-label="Open full-size ${escapeHtml(p.title)} image ${i+1}"><img src="${escapeHtml(src)}" alt="${escapeHtml(p.imageDescriptions?.[src] || `${p.title} — project image ${i+1}`)}" decoding="async"></a>${p.imageDescriptions?.[src] ? `<figcaption>${escapeHtml(p.imageDescriptions[src])}</figcaption>` : ""}</figure>`).join('');
+ panel.querySelectorAll('img').forEach(img => img.onerror = () => { img.closest("figure").remove(); if (!panel.children.length) { panel.hidden = true; panel.parentElement.classList.add('text-only'); } });
+ const links = Object.entries(p.links);
+ document.getElementById('modalLinks').innerHTML = links.map(([label,url]) => `<a class="xp-button" href="${escapeHtml(url)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`).join('');
+ document.getElementById('modalLinksHeading').hidden = !links.length;
+ modalBackdrop.classList.add('open'); modalBackdrop.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; document.querySelector('.desktop-bg').inert = true; modalClose.focus();
 }
-
 function closeModal() {
-  modalBackdrop.classList.remove("open");
-  modalBackdrop.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
+ if (!modalBackdrop.classList.contains('open')) return;
+ modalBackdrop.classList.remove('open'); modalBackdrop.setAttribute('aria-hidden','true'); document.body.style.overflow = ''; document.querySelector('.desktop-bg').inert = false; modalTrigger?.focus();
+ if (location.hash.startsWith('#project=')) history.replaceState(null,'','#projects');
 }
-
-modalClose.addEventListener("click", closeModal);
-modalBackdrop.addEventListener("click", event => {
-  if (event.target === modalBackdrop) closeModal();
+modalClose.onclick = closeModal;
+modalBackdrop.onclick = event => { if (event.target === modalBackdrop) closeModal(); };
+document.addEventListener('keydown',event => {
+ if (event.key === 'Escape') closeModal();
+ if (event.key === 'Tab' && modalBackdrop.classList.contains('open')) {
+  const items = [...modalBackdrop.querySelectorAll('button, a[href]')], first = items[0], last = items[items.length-1];
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+ }
 });
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeModal();
-});
-
-renderTabs();
-renderProjects();
-initWindowControls();
-initExperienceSliders();
+function initExperienceSliders() {
+ document.querySelectorAll('[data-slider]').forEach(slider => {
+  const slides = [...slider.querySelectorAll('.experience-slide')], dots = [...slider.querySelectorAll('[data-slider-dot]')]; let active = 0;
+  function show(i) { active = (i + slides.length) % slides.length; slides.forEach((s,n) => s.classList.toggle('is-active',n === active)); dots.forEach((d,n) => { d.classList.toggle('is-active',n === active); d.setAttribute('aria-current',String(n === active)); }); }
+  slider.querySelector('[data-slider-prev]').onclick = () => show(active-1); slider.querySelector('[data-slider-next]').onclick = () => show(active+1); dots.forEach((dot,i) => dot.onclick = () => show(i)); show(0);
+ });
+}
+function openLinkedProject() { const p = projects.find(p => location.hash === `#project=${p.slug}`); if (p) openProject(p); }
+document.querySelector('.stat-tile strong').textContent = String(projects.length);
+renderTabs(); renderProjects(); initExperienceSliders(); window.addEventListener('hashchange',openLinkedProject); openLinkedProject();
