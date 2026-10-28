@@ -536,7 +536,7 @@ function closeModal() {
 modalClose.onclick = closeModal;
 modalBackdrop.onclick = event => { if (event.target === modalBackdrop) closeModal(); };
 document.addEventListener('keydown',event => {
- if (event.key === 'Escape') closeModal();
+ if (event.key === 'Escape' && modalBackdrop.classList.contains('open')) { event.preventDefault(); closeModal(); }
  if (event.key === 'Tab' && modalBackdrop.classList.contains('open')) {
   const items = [...modalBackdrop.querySelectorAll('button, a[href]')], first = items[0], last = items[items.length-1];
   if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }

@@ -23,3 +23,7 @@
   .desktop-mode .hero { padding:30px 20px; }
 }
 
+
+.desktop-mode .top-window, .desktop-mode main, .desktop-mode main > .shell-window { min-width: 0; width: 100%; }
+.desktop-mode .desktop-icons { max-height: calc(100vh - 90px); overflow-y: auto; }
+@media(max-width:700px) { .desktop-mode .desktop-icons { max-height: none; overflow: visible; } }

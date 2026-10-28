@@ -4,6 +4,7 @@
     ["experience", "Experience", "case"],
     ["projects", "My Projects", "board"],
     ["skills", "My Toolkit", "chip"],
+    ["awards", "Awards", "chip"],
     ["beyond-work", "Other Work", "camera"],
     ["contact", "Contact Me", "mail"]
   ];
@@ -25,13 +26,14 @@
   const windows = [...document.querySelectorAll("main > .section-window")];
   const home = document.querySelector(".top-window");
   windows.forEach(win => {
-    const controls = win.querySelector(".window-controls");
+    let controls = win.querySelector(".window-controls");
+    if (!controls) { controls = document.createElement("div"); controls.className = "window-controls"; win.querySelector(".title-bar").append(controls); }
     controls.removeAttribute("aria-hidden");
     controls.innerHTML = '<button type="button" class="desktop-close" aria-label="Close '+win.querySelector("h2").textContent+' window">×</button>';
     controls.querySelector("button").addEventListener("click", () => { location.hash = "top"; });
   });
   function showWindow(focus) {
-    const id = location.hash.slice(1);
+    const id = location.hash.startsWith("#project=") ? "projects" : location.hash.slice(1);
     const selected = windows.find(win => win.id === id);
     windows.forEach(win => { win.hidden = win !== selected; });
     home.hidden = Boolean(selected);
@@ -40,7 +42,7 @@
       else a.removeAttribute("aria-current");
     });
     document.querySelector(".task-pill").textContent = selected ? selected.querySelector("h2").textContent : "Ali Habil / Desktop";
-    if (focus && selected) {
+    if (focus && selected && !document.getElementById("modalBackdrop").classList.contains("open")) {
       const heading = selected.querySelector("h2");
       heading.tabIndex = -1;
       heading.focus({preventScroll:true});
@@ -51,9 +53,7 @@
     window.scrollTo(0,0);
   }
   window.addEventListener("hashchange", () => showWindow(true));
-  document.addEventListener("keydown", event => {
-    if (!event.defaultPrevented && event.key === "Escape" && !document.getElementById("modalBackdrop").classList.contains("open") && windows.some(win=>!win.hidden)) location.hash="top";
-  });
+
   document.querySelector(".start-button").textContent = "⌘ Start";
   document.querySelector(".skip-link").href = "#about";
   showWindow(false);

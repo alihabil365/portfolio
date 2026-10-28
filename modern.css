@@ -80,3 +80,18 @@ section[id] { scroll-margin-top:24px; }
 @media(max-width:640px) { .desktop-bg { padding:16px 10px 76px; } .content-panel { padding:22px 16px; } .hero { padding:30px 20px; } .experience-grid { grid-template-columns:1fr; } h1 { font-size:58px; } .lead { font-size:18px; } .menu-bar { gap:2px; padding:7px; } .menu-bar a { padding:8px; } .category-tabs { gap:8px; } .tab-button { flex:1 1 100%; text-align:left; } .modal-backdrop { padding:8px; } .modal-body { padding:18px; } .contact-links { flex-direction:column; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { transition:none!important; animation:none!important; } }
 
+
+/* Keep the updated content aligned with the original charcoal / olive desktop. */
+body { background: var(--desktop-dark); }
+.hero-subtitle { color: #3d5140; }
+.card-category { color: #4b5840 !important; }
+.project-card:hover { border-color: #758369; box-shadow: 0 8px 22px #0002; }
+.project-card p, .experience-date, .modal-image figcaption { color: #596052; }
+.project-thumb { flex: none; aspect-ratio: auto; }
+.modal-image.has-photo { background: transparent; }
+.modal-body.text-only { grid-template-columns: minmax(0, 1fr); }
+.modal-image figure { margin: 0; }
+#projectSearch { background: #faf9f4; color: #293029; border-color: #b9bfaf; }
+.start-button { background: linear-gradient(#59654f, #434c3e); }
+.hero-card { border-color: #cbcbbf; }
+@media (max-width: 920px) { .modal-body { grid-template-columns: minmax(0, 1fr); } }
