@@ -24,26 +24,24 @@
   document.querySelector(".desktop-bg").prepend(nav);
   document.body.classList.add("desktop-mode");
   const windows = [...document.querySelectorAll("main > .section-window")];
-  const home = document.querySelector(".top-window");
-  windows.forEach(win => {
+  windows.filter(win => win.id !== "about").forEach(win => {
     let controls = win.querySelector(".window-controls");
     if (!controls) { controls = document.createElement("div"); controls.className = "window-controls"; win.querySelector(".title-bar").append(controls); }
     controls.removeAttribute("aria-hidden");
-    controls.innerHTML = '<button type="button" class="desktop-close" aria-label="Close '+win.querySelector("h2").textContent+' window">×</button>';
+    controls.innerHTML = '<button type="button" class="desktop-close" aria-label="Close '+win.querySelector("h1, h2").textContent+' window">×</button>';
     controls.querySelector("button").addEventListener("click", () => { location.hash = "top"; });
   });
   function showWindow(focus) {
     const id = location.hash.startsWith("#project=") ? "projects" : location.hash.slice(1);
-    const selected = windows.find(win => win.id === id);
+    const selected = windows.find(win => win.id === id) || windows.find(win => win.id === "about");
     windows.forEach(win => { win.hidden = win !== selected; });
-    home.hidden = Boolean(selected);
     nav.querySelectorAll("a").forEach(a => {
-      if (a.hash === "#"+id) a.setAttribute("aria-current","page");
+      if (a.hash === "#"+selected.id) a.setAttribute("aria-current","page");
       else a.removeAttribute("aria-current");
     });
-    document.querySelector(".task-pill").textContent = selected ? selected.querySelector("h2").textContent : "Ali Habil / Desktop";
+    document.querySelector(".task-pill").textContent = selected.id === "about" ? "About Me" : selected.querySelector("h2").textContent;
     if (focus && selected && !document.getElementById("modalBackdrop").classList.contains("open")) {
-      const heading = selected.querySelector("h2");
+      const heading = selected.querySelector("h1, h2");
       heading.tabIndex = -1;
       heading.focus({preventScroll:true});
     } else if (focus) {

@@ -47,3 +47,17 @@
 .certificates-heading { margin-top: 32px; }
 .credential-card h4, #awards .folder-card h4 { margin: 0 0 12px; font-size: 18px; line-height: 1.4; }
 .credential-id { font-size: 13px; overflow-wrap: anywhere; color: #596052; }
+
+/* Keep the combined introduction comfortable on narrow screens. */
+#about .hero-card { transform: none; }
+#about .stats-grid { margin-top: 16px; }
+#about .hero-actions { margin-top: 24px; }
+@media (max-width: 700px) {
+  .desktop-shortcut { min-height: 80px; }
+  .desktop-close { width: 44px; height: 44px; }
+  .desktop-mode .task-clock { display: none; }
+  .desktop-mode .start-button { padding-inline: 16px; }
+  .hero-actions .xp-button { flex: 1 1 140px; text-align: center; }
+  .slider-dots { gap: 4px; }
+  .slider-dot { width: 28px; height: 44px; }
+}
